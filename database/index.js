@@ -8,3 +8,4 @@ const db = mysql.createConnection({
 db.connect();
 
 exports.db = db;
+exports.mysql = mysql;
