@@ -17,6 +17,7 @@ CREATE TABLE reviews (
 	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	headline VARCHAR(80),
 	body VARCHAR(5000),
+	stars INTEGER,
 	posted DATE NOT NULL,
 	helpful INTEGER,
 	verified BOOLEAN DEFAULT false,
@@ -24,14 +25,6 @@ CREATE TABLE reviews (
 	product_id INTEGER,
 	FOREIGN KEY (author_id) REFERENCES authors(id),
 	FOREIGN KEY (product_id) REFERENCES products(id)
-);
-
-
-CREATE TABLE ratings (
-	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	stars INTEGER,
-	review_id INTEGER,
-	FOREIGN KEY (review_id) REFERENCES reviews(id)
 );
 
 CREATE TABLE ratings_feature (
