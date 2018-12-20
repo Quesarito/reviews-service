@@ -1,0 +1,50 @@
+CREATE DATABASE amazon_reviews;
+
+USE amazon_reviews;
+
+CREATE TABLE products (
+	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(200)
+);
+
+CREATE TABLE authors (
+	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(100),
+	avatar VARCHAR(200)
+);
+
+CREATE TABLE reviews (
+	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	headline VARCHAR(80),
+	body VARCHAR(5000),
+	posted DATE NOT NULL,
+	helpful INTEGER,
+	verified BOOLEAN DEFAULT false,
+	author_id INTEGER,
+	product_id INTEGER
+);
+
+
+CREATE TABLE ratings (
+	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	stars INTEGER,
+	review_id INTEGER,
+	product_id INTEGER
+);
+
+CREATE TABLE ratings_feature (
+	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	feature VARCHAR(80),
+	rating DOUBLE,
+	count INTEGER,
+	product_id INTEGER,
+	FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+CREATE TABLE media (
+	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	type VARCHAR(5),
+	file VARCHAR(200),
+	review_id INTEGER,
+	FOREIGN KEY (review_id) REFERENCES reviews(id)
+);
