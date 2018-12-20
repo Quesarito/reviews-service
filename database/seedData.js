@@ -42,8 +42,7 @@ let generateRatings = function(num = NUM_RATINGS) {
 	return Array.from({length:num}, r => {
 		return [
 			getRandomInt(0, 6), //stars
-			getRandomInt(1, NUM_REVIEWS), //review
-			getRandomInt(1, NUM_PRODUCTS) //product
+			getRandomInt(1, NUM_REVIEWS) //review
 		]
 	})
 }
@@ -64,8 +63,7 @@ let generateMedia = function(num = NUM_MEDIA) {
 		return [
 			'photo',//type
 			faker.image.image(), //file
-			getRandomInt(1, NUM_REVIEWS), //review
-			getRandomInt(1, NUM_PRODUCTS) //product
+			getRandomInt(1, NUM_REVIEWS) //review
 		]
 	})
 }
@@ -88,23 +86,15 @@ let media = generateMedia();
 let mysqlReady = (arr) => {
 	return arr.map(i => {
 		return `(${['default'].concat(i.map(e => JSON.stringify(e))).join(',')})`;
-		// return `(${i.join(',')})`;
 	}).join(',');
 };
 
-// let q = 'INSERT INTO ratings (stars, review_id, product_id) VALUES ' + mysqlReady(rates) + ';';
-// let q = `INSERT INTO reviews (headline, body, posted, helpful, verified, author_id, product_id) VALUES ${mysqlReady(reviews)};`;
-// let q = `INSERT INTO reviews VALUES ${mysqlReady(reviews)};`;
-// let q = `INSERT INTO reviews (headline, body, posted, helpful, verified, author_id, product_id) VALUES ?`;
-// console.log(authors);
 let qProducts = `INSERT INTO products VALUES ${mysqlReady(products)}`;
 let qAuthors = `INSERT INTO authors VALUES ${mysqlReady(authors)}`;
 let qReviews = `INSERT INTO reviews VALUES ${mysqlReady(reviews)}`;
 let qRatings = `INSERT INTO ratings VALUES ${mysqlReady(ratings)}`;
 let qFeatures = `INSERT INTO ratings_feature VALUES ${mysqlReady(features)}`;
 let qMedia = `INSERT INTO media VALUES ${mysqlReady(media)}`;
-// console.log(q);
-// console.log(mysql.format(q, authors));
 
 let queries = [qProducts, qAuthors, qReviews, qRatings];
 
@@ -116,7 +106,6 @@ db.queryAsync(qProducts)
 	.then(ok => {
 		console.log('done with authors!');
 		return db.queryAsync(qReviews);
-		// return db.queryAsync('SELECT * FROM authors');
 	})
 	.then(ok => {
 		console.log('done with reviews!');
@@ -133,22 +122,6 @@ db.queryAsync(qProducts)
 	})
 	.catch(err => {
 		console.log('caught', err);
+		db.end();
 	});
-// db.query(qProducts, (err, results) => {
-// 	if (err) throw err;
-// 	db.query(qAuthors, (err, results) => {
-// 		if (err) throw err;
-// 		db.query(qReviews, (err, results) => {
-// 			if (err) throw err;
-// 			console.log('should have products, authors, reviews');
-// 		})
-// 	})
-// });
-// queries.forEach(q => {
-// 	db.query(q, (err, results) => {
-// 		if (err) throw err;
-// 		console.log('%%%%%%%%%%%%%%%%%%%%', results);
-// 	});
-// })
 
-// db.end();

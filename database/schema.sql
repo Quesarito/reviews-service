@@ -31,9 +31,7 @@ CREATE TABLE ratings (
 	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	stars INTEGER,
 	review_id INTEGER,
-	product_id INTEGER,
-	FOREIGN KEY (review_id) REFERENCES reviews(id),
-	FOREIGN KEY (product_id) REFERENCES products(id)
+	FOREIGN KEY (review_id) REFERENCES reviews(id)
 );
 
 CREATE TABLE ratings_feature (
@@ -50,7 +48,5 @@ CREATE TABLE media (
 	type VARCHAR(5),
 	file VARCHAR(200),
 	review_id INTEGER,
-	product_id INTEGER,
-	FOREIGN KEY (review_id) REFERENCES reviews(id),
-	FOREIGN KEY (product_id) REFERENCES products(id)
+	FOREIGN KEY (review_id) REFERENCES reviews(id)
 );
