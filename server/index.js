@@ -21,10 +21,16 @@ app.get('/reviews_summary/:productId', (req, res, next) => {
     if (err) {
       res.status(500).send(err);
     }
-    res.send(results);
+    let allStars = results.reduce((sum, row) => {
+      return sum + row.stars;
+    }, 0);
+    let data = {
+      average: (allStars / results.length).toFixed(2),
+      count: results.length
+    };
+    res.send(data);
   });
 });
-
 
 app.listen(port, (err) => {
   if (err) {
