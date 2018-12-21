@@ -8,9 +8,9 @@ const db = mysql.createConnection({
 db.connect();
 
 //Takes an object stating the search criteria
-const retrieve = (productId, callback) => {
+const retrieve = (productId, type, callback) => {
   //product id as search criteria
-  let query = `SELECT revs.*, media.file, 
+  let qComplete = `SELECT revs.*, media.file, 
     ratings_feature.feature, ratings_feature.rating AS featureRating 
   FROM (SELECT products.name AS productName,
     reviews.* FROM products, reviews 
@@ -19,6 +19,8 @@ const retrieve = (productId, callback) => {
   LEFT JOIN media ON media.review_id = revs.id
   LEFT JOIN ratings_feature ON ratings_feature.product_id = revs.product_id;
     `;
+  let qSummary = 'SELECT stars FROM reviews WHERE product_id = ?';
+  let query = (type === 'summary') ? qSummary : qComplete;
   db.query(query, productId, (err, results) => {
     if (err) { throw err; }
     console.log(results);
