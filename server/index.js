@@ -7,10 +7,6 @@ const {db, retrieve} = require('../database');
 app.use(express.static('public'));
 app.use(bodyParser());
 
-// app.get('/', (req, res) => {
-//   res.send('hihi');
-// });
-
 app.get('/reviews', (req, res) => {
   retrieve(41, (err, results) => {
     res.send(results);
