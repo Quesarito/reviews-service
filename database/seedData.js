@@ -18,12 +18,12 @@ let getRandomDouble = function(start = 0, stop = 5) {
 };
 
 let generateProducts = function(num = NUM_PRODUCTS) {
-  return Array.from({length:num},
+  return Array.from({length: num},
     p => [faker.commerce.productName()]);
 };
 
 let generateAuthors = function(num = NUM_AUTHORS) {
-  return Array.from({length:num}, a => {
+  return Array.from({length: num}, a => {
     return [
       faker.internet.userName(),
       faker.internet.avatar()
@@ -32,7 +32,7 @@ let generateAuthors = function(num = NUM_AUTHORS) {
 };
 
 let generateReviews = function(num = NUM_REVIEWS) {
-  return Array.from({length:num}, r => {
+  return Array.from({length: num}, r => {
     return [
       faker.company.catchPhrase(), //headline
       faker.hacker.phrase(), //body
@@ -47,7 +47,7 @@ let generateReviews = function(num = NUM_REVIEWS) {
 };
 
 let generateFeatureRatings = function(num = NUM_RATINGS_FEATURE) {
-  return Array.from({length:num}, r => {
+  return Array.from({length: num}, r => {
     return [
       faker.commerce.productAdjective(), //feature
       getRandomDouble(), //overall rating
@@ -58,7 +58,7 @@ let generateFeatureRatings = function(num = NUM_RATINGS_FEATURE) {
 };
 
 let generateMedia = function(num = NUM_MEDIA) {
-  return Array.from({length:num}, m => {
+  return Array.from({length: num}, m => {
     return [
       'photo',//type
       faker.image.image(), //file
