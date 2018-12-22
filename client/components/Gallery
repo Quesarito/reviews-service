@@ -1,0 +1,9 @@
+import React from 'react';
+
+let Gallery = () => {
+  return (
+    <div>
+      Square-cropped image with onClick to launch modal
+    </div>
+  );
+}
