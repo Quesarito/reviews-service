@@ -13,6 +13,10 @@ module.exports = {
         options: {
           presets: ['@babel/preset-react']
         }
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
+        loaders: 'file-loader',
       }
     ]
   },

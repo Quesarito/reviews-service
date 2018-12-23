@@ -1,6 +1,20 @@
 import React from 'react';
+import styled from 'styled-components';
 import Review from './Review.jsx';
 import StarRatings from './StarRatings.jsx';
+import { createGlobalStyle } from 'styled-components';
+import AmazonEmber from '../styles/fonts/AmazonEmber_Rg.ttf';
+
+
+const GlobalStyles = createGlobalStyle`
+  @font-face {
+    font-family: 'Amazon Ember';
+    src: url('${AmazonEmber}') format('truetype');
+  }
+  body {
+    font-family: 'Amazon Ember', sans-serif;
+  }
+`;
 
 class App extends React.Component {
   constructor() {
@@ -16,11 +30,13 @@ class App extends React.Component {
   }
 
   fetchReviews(productId) {
-    fetch(`/reviews/${productId}`)
+    fetch(`/reviews/${productId}`, {
+      method: 'GET'
+    })
       .then(res => {
         return res.json();
       })
-      .then(reviewData => {
+      .then(({reviewData, starData}) => {
         let update = this.state.allReviews;
         update[productId] = reviewData;
         this.setState({
@@ -30,7 +46,6 @@ class App extends React.Component {
             console.log('Error in setState');
             throw err;
           }
-          // console.log('&&&&&&&&&&&&&&&&&&&&&&', this.state.allReviews);
         });
       })
       .catch(err => {
@@ -41,6 +56,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <GlobalStyles />
         <StarRatings />
         {
           (!this.state.allReviews.hasOwnProperty(this.state.productId)) ? '' : 
