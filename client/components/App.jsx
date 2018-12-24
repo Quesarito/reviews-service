@@ -4,7 +4,8 @@ import Review from './Review.jsx';
 import StarRatings from './StarRatings.jsx';
 import { createGlobalStyle } from 'styled-components';
 import AmazonEmber from '../styles/fonts/AmazonEmber_Rg.ttf';
-
+import {FiveStar, FiveStarSmall} from './FiveStar.jsx';
+import ReviewList from './ReviewList.jsx';
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -13,7 +14,29 @@ const GlobalStyles = createGlobalStyle`
   }
   body {
     font-family: 'Amazon Ember', sans-serif;
+
   }
+  
+  .gray {
+    color: #555;
+  }
+
+  .orange {
+    color: #c45500;
+  }
+
+  .blue {
+    color: #0066c0;
+  }
+
+  .flex-left-center {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const StyledApp = styled.div`
+  display: flex;
 `;
 
 class App extends React.Component {
@@ -22,7 +45,7 @@ class App extends React.Component {
     this.state = {
       allReviews: {},
       starData: {},
-      productId: 71
+      productId: 93
     };
   } 
 
@@ -55,9 +78,11 @@ class App extends React.Component {
       });
   }
 
+  
+
   render() {
     return (
-      <div>
+      <StyledApp>
         <GlobalStyles />
         {
           (!this.state.starData.hasOwnProperty('total')) ? '' : 
@@ -65,11 +90,9 @@ class App extends React.Component {
         }
         {
           (!this.state.allReviews.hasOwnProperty(this.state.productId)) ? '' : 
-            this.state.allReviews[this.state.productId].map(review => 
-              <Review key={review.id} productReview={review}/>
-            )
+            <ReviewList reviews={this.state.allReviews[this.state.productId]} />
         }
-      </div>
+      </StyledApp>
     );
   }  
 }

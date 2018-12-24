@@ -1,77 +1,84 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import {FiveStarSmall} from './FiveStar.jsx';
+import {formatDate} from '../helpers';
 const StyledDiv = styled.div`
   color: black;
-  font-family:
-  border: solid 1px black;
+  font-size: 13px;
+  margin: 10px 0;
+  padding: 10px;
+
+  .helpful {
+    color: #767676;
+  }
+
+  .verified {
+    font-weight: bold;
+    font-size: 11px;
+  }
 `;
 
 const Avatar = styled.div`
   border-radius: 50%;
   height:40px;
   width:40px;
+  margin-right: 10px;
 `;
 
 const SpanHeadline = styled.span`
-  font-weight:bold;
+  font-weight:700;
 `;
 
-//The verified color is the same for links
-const Verified = styled.span`
-  font-weight:bold;
-  font-size:11px;
-  color:#c45500;
-`;
+const StyledHeader = styled.div`
+  margin: 10px 0;
 
-//Need to calculate background image position via props
-const StarBar = styled.span`
-  background-color:#efefef;
+  div {
+    margin: 2px 10px 0 0;
+  }
 `;
 
 const StyledFooter = styled.div`
+  margin-top: 5px;
+
+  div {
+    margin: 10px 0;
+  }
+
   .helped {
     color: #767676;
   }  
 `;
 
-const monthByNumber = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-];
-const formatDate = date => {
-  date = new Date(date);
-  let year = date.getFullYear();
-  let month = monthByNumber[date.getMonth()];
-  let day = date.getDate();
-  return `${month} ${day}, ${year}`;
-};
+
 
 const Review = ({productReview}) => {
   return (
     <StyledDiv className="Review">
-      <Avatar 
-        as="img"
-        src={productReview.avatar}
-      />
-      {productReview.username}<br />
-      <StarBar>★★★★☆</StarBar> <SpanHeadline>{productReview.headline}</SpanHeadline>
-      <div>{formatDate(productReview.posted)}</div>
-      <Verified>{(productReview.verified) ? 'Verified' : ''}</Verified>
+      {/* HEADER: AUTHOR INFO */}
+      <div className="flex-left-center">
+        <Avatar 
+          as="img"
+          src={productReview.avatar}
+        />
+        {productReview.username}
+      </div>
+
+      <StyledHeader>
+        <div className="flex-left-center">
+          <FiveStarSmall rating={productReview.stars}/> <SpanHeadline>{productReview.headline}</SpanHeadline>
+        </div>  
+        <div className="gray">{formatDate(productReview.posted)}</div>
+        <div className="orange verified">{(productReview.verified) ? 'Verified Purchase' : ''}</div>
+      </StyledHeader>
+
       <div>{productReview.body}</div>
+
       <StyledFooter>
-        <div className='helped'>{productReview.helpful} people found this helpful</div>
-        <button>Helpful</button> | Contact | Report abuse
+        <div className="helpful">{productReview.helpful} people found this helpful</div>
+        <div>
+          <button>Helpful</button> 
+          <span className="gray">| Contact | Report abuse</span>
+        </div>
       </StyledFooter>
     </StyledDiv>
   );

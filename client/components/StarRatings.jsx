@@ -1,16 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
+import {FiveStar, FiveStarSmall} from './FiveStar.jsx';
 
 const StyledStarRatings = styled.div`
   font-size:13px;
   width: 300px;
+
+  &>div:first-of-type {
+    display: flex;
+    margin-bottom: 20px;
+
+    div {
+      margin-right: 10px;
+    }
+  }
+
+  a {
+    color: #0066c0;
+  }
+`;
+
+const StarTable = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
 `;
 
 const StarBar = styled.div`
   text-decoration: none;
   display: flex;
   align-items: center;
-
+  
   .wrapper {
     background: linear-gradient(to bottom,#eee,#f6f6f6);
     background-color: #f3f3f3;
@@ -43,23 +62,29 @@ let StarRatings = ({starData}) => {
       <h3>{starData.total} customer  
         {(starData.total !== 1) ? ' reviews' : ' review'}
       </h3> 
-      <div>★★★★☆ {starData.average} out of 5 stars</div>
-      {
-        starData.counts.map((count, stars) => {
-          let percent = (count / starData.total) * 100;
-          return (stars === 0) 
-            ? ''
-            : (
-              <StarBar as="a" href="#"
-                key={stars} percent={percent}>
-                {stars} star
-                <div className="wrapper" >
-                  <div className="fill"></div>
-                </div>
-              </StarBar>
-            );
-        })
-      }
+      <div>
+        <FiveStarSmall rating={starData.average} />
+        <span>{starData.average} out of 5 stars</span>
+      </div>
+      
+      <StarTable>
+        {
+          starData.counts.map((count, stars) => {
+            let percent = (count / starData.total) * 100;
+            return (stars === 0) 
+              ? ''
+              : (
+                <StarBar as="a" href="#"
+                  key={stars} percent={percent}>
+                  {stars} star
+                  <div className="wrapper" >
+                    <div className="fill"></div>
+                  </div>
+                </StarBar>
+              );
+          })
+        }
+      </StarTable>
     </StyledStarRatings>
   );
 };
