@@ -11,22 +11,27 @@ const getReviewData = (req, res, next) => {
 };
 
 const getStarData = (req, res, next) => {
+  // let starData = {
+  //   0: 0,
+  //   1: 0,
+  //   2: 0,
+  //   3: 0,
+  //   4: 0,
+  //   5: 0,
+  //   count: res.reviewData.length
+  // };
   let starData = {
-    0: 0,
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0,
-    5: 0,
-    count: res.reviewData.length
+    counts: Array.from({length: 6}, i => 0),
+    total: res.reviewData.length
   };
   let sum = 0;
   res.reviewData.forEach(row => {
-    starData[row.stars]++;
+    starData.counts[row.stars]++;
     sum += row.stars;
   });
-  starData.average = (sum / starData.count).toFixed(1);
+  starData.average = (sum / starData.total).toFixed(1);
   res.starData = starData;
+  console.log(starData);
   next();
 };
 

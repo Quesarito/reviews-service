@@ -21,7 +21,8 @@ class App extends React.Component {
     super();
     this.state = {
       allReviews: {},
-      productId: 93
+      starData: {},
+      productId: 71
     };
   } 
 
@@ -40,7 +41,8 @@ class App extends React.Component {
         let update = this.state.allReviews;
         update[productId] = reviewData;
         this.setState({
-          allReviews: update
+          starData,
+          allReviews: update,
         }, err => {
           if (err) {
             console.log('Error in setState');
@@ -57,7 +59,10 @@ class App extends React.Component {
     return (
       <div>
         <GlobalStyles />
-        <StarRatings />
+        {
+          (!this.state.starData.hasOwnProperty('total')) ? '' : 
+            <StarRatings starData={this.state.starData}/>
+        }
         {
           (!this.state.allReviews.hasOwnProperty(this.state.productId)) ? '' : 
             this.state.allReviews[this.state.productId].map(review => 
