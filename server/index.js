@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const port = 3000;
-const {getStarData, getReviewData} = require('./getReviews.js');
+const {getStarData, getReviewData, getFeatureData} = require('./getReviews.js');
 
 app.use(express.static('public'));
 app.use(bodyParser());
@@ -10,11 +10,12 @@ app.use(bodyParser());
 app.get('/reviews/:productId', 
   getReviewData, 
   getStarData, 
+  getFeatureData,
   (req, res) => {
-    let {starData, reviewData} = res;
+    let {starData, reviewData, featureData} = res;
     (req.query.reviewType === 'summary')
       ? res.send({starData})
-      : res.send({starData, reviewData});
+      : res.send({starData, reviewData, featureData});
   }
 );
 

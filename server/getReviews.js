@@ -11,15 +11,6 @@ const getReviewData = (req, res, next) => {
 };
 
 const getStarData = (req, res, next) => {
-  // let starData = {
-  //   0: 0,
-  //   1: 0,
-  //   2: 0,
-  //   3: 0,
-  //   4: 0,
-  //   5: 0,
-  //   count: res.reviewData.length
-  // };
   let starData = {
     counts: Array.from({length: 6}, i => 0),
     total: res.reviewData.length
@@ -35,4 +26,16 @@ const getStarData = (req, res, next) => {
   next();
 };
 
-module.exports = {getReviewData, getStarData};
+const getFeatureData = (req, res, next) => {
+  let featureData = {};
+  res.reviewData.forEach(row => {
+    if (row.feature !== null && !featureData.hasOwnProperty(row.feature)) {
+      featureData[row.feature] = row.featureRating;
+    }
+  });
+  console.log(featureData);
+  res.featureData = featureData;
+  next();
+};
+
+module.exports = {getReviewData, getStarData, getFeatureData};

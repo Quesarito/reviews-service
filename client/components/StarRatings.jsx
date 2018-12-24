@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {FiveStar, FiveStarSmall} from './FiveStar.jsx';
+import FeatureRating from './FeatureRating.jsx';
 
 const StyledStarRatings = styled.div`
   font-size:13px;
@@ -20,7 +21,12 @@ const StyledStarRatings = styled.div`
   }
 `;
 
-const StarTable = styled.div`
+const Section = styled.div`
+  padding: 10px 0 20px 0;
+  border-bottom: solid 1px #d3d3d3;
+`;
+
+const StarTable = styled(Section)`
   display: flex;
   flex-direction: column-reverse;
 `;
@@ -49,14 +55,13 @@ const StarBar = styled.div`
     }
 
   }
-  
-  ::after {
-    color: #555;
-    content: '${({percent}) => percent.toFixed(1)}%';
-  }
 `;
 
-let StarRatings = ({starData}) => {
+const FeatureTable = styled(Section)`
+  
+`;
+
+let StarRatings = ({starData, featureData}) => {
   return (
     <StyledStarRatings>
       <h3>{starData.total} customer  
@@ -80,11 +85,35 @@ let StarRatings = ({starData}) => {
                   <div className="wrapper" >
                     <div className="fill"></div>
                   </div>
+                  <span className="gray">
+                    {percent.toFixed()}%
+                  </span>
                 </StarBar>
               );
           })
         }
       </StarTable>
+
+      {
+        (Object.keys(featureData).length < 1)
+          ? ''
+          : <FeatureTable>
+            <h3>By feature</h3>
+            {
+              Object.entries(featureData).map(pair => {
+                return (
+                  <FeatureRating feature={pair[0]} rating={pair[1]}/>
+                );
+              })
+            }
+          </FeatureTable>
+      }
+
+      <Section>
+        <h3>Review this product</h3>
+        Share your thoughts with other customers
+        <button>Write a customer review</button>
+      </Section>
     </StyledStarRatings>
   );
 };

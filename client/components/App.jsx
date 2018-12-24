@@ -21,6 +21,10 @@ const GlobalStyles = createGlobalStyle`
     color: #555;
   }
 
+  .lightgray {
+    color: #767676;
+  }
+
   .orange {
     color: #c45500;
   }
@@ -45,7 +49,8 @@ class App extends React.Component {
     this.state = {
       allReviews: {},
       starData: {},
-      productId: 93
+      featureData: {},
+      productId: 94
     };
   } 
 
@@ -60,11 +65,12 @@ class App extends React.Component {
       .then(res => {
         return res.json();
       })
-      .then(({reviewData, starData}) => {
+      .then(({reviewData, starData, featureData}) => {
         let update = this.state.allReviews;
         update[productId] = reviewData;
         this.setState({
           starData,
+          featureData,
           allReviews: update,
         }, err => {
           if (err) {
@@ -86,7 +92,9 @@ class App extends React.Component {
         <GlobalStyles />
         {
           (!this.state.starData.hasOwnProperty('total')) ? '' : 
-            <StarRatings starData={this.state.starData}/>
+            <StarRatings 
+              starData={this.state.starData} 
+              featureData={this.state.featureData}/>
         }
         {
           (!this.state.allReviews.hasOwnProperty(this.state.productId)) ? '' : 

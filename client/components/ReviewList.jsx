@@ -11,7 +11,7 @@ const ReviewList = ({reviews}) => {
     <StyledReviewList>
       {
         reviews.map(review => 
-          <Review key={review.id} productReview={review}/>
+          <Review productReview={review}/>
         )
       }
     </StyledReviewList>
