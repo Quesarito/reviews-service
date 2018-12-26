@@ -50,7 +50,6 @@ const StyledFooter = styled.div`
 `;
 
 
-
 const Review = ({productReview}) => {
   return (
     <StyledDiv className="Review">
@@ -84,4 +83,5 @@ const Review = ({productReview}) => {
   );
 };
 
+Review.displayName = 'Review';
 export default Review;

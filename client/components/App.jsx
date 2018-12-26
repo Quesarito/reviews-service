@@ -1,22 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
-import Review from './Review.jsx';
 import StarRatings from './StarRatings.jsx';
-import { createGlobalStyle } from 'styled-components';
+import {createGlobalStyle} from 'styled-components';
 import AmazonEmber from '../styles/fonts/AmazonEmber_Rg.ttf';
-import {FiveStar, FiveStarSmall} from './FiveStar.jsx';
+import AmazonEmberBold from '../styles/fonts/AmazonEmber_Bd.ttf';
 import ReviewList from './ReviewList.jsx';
+import CustomerImages from './CustomerImages.jsx';
+import Keywords from './Keywords.jsx';
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
     font-family: 'Amazon Ember';
     src: url('${AmazonEmber}') format('truetype');
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Amazon Ember';
+    src: url('${AmazonEmberBold}') format('truetype');
+    font-weight: bold;
   }
   body {
-    font-family: 'Amazon Ember', sans-serif;
+    font-family: 'Amazon Ember', Arial, sans-serif;
 
   }
   
+  .review-wrapper {
+    margin-left: 70px;
+  }
+
   .gray {
     color: #555;
   }
@@ -96,10 +107,16 @@ class App extends React.Component {
               starData={this.state.starData} 
               featureData={this.state.featureData}/>
         }
-        {
-          (!this.state.allReviews.hasOwnProperty(this.state.productId)) ? '' : 
-            <ReviewList reviews={this.state.allReviews[this.state.productId]} />
-        }
+        <div className="review-wrapper">
+          <CustomerImages />
+          {
+            (!this.state.allReviews.hasOwnProperty(this.state.productId)) ? '' : 
+              <>
+              <Keywords />
+              <ReviewList reviews={this.state.allReviews[this.state.productId]} />
+              </>
+          }
+        </div>
       </StyledApp>
     );
   }  

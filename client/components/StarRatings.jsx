@@ -33,6 +33,7 @@ const StarTable = styled(Section)`
 
 const StarBar = styled.div`
   text-decoration: none;
+  width: 300px;
   display: flex;
   align-items: center;
   
@@ -64,9 +65,9 @@ const FeatureTable = styled(Section)`
 let StarRatings = ({starData, featureData}) => {
   return (
     <StyledStarRatings>
-      <h3>{starData.total} customer  
+      <h2>{starData.total} customer  
         {(starData.total !== 1) ? ' reviews' : ' review'}
-      </h3> 
+      </h2> 
       <div>
         <FiveStarSmall rating={starData.average} />
         <span>{starData.average} out of 5 stars</span>
