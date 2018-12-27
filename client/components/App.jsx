@@ -122,4 +122,5 @@ class App extends React.Component {
   }  
 }
 
+StyledApp.displayName = 'StyledApp';
 export default App;

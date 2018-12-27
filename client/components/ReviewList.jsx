@@ -32,4 +32,5 @@ const ReviewList = ({reviews}) => {
   );
 };
 
+StyledReviewList.displayName = 'StyledReviewList';
 export default ReviewList;

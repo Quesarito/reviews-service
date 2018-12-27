@@ -1,13 +1,29 @@
 import React from 'react';
+import mockFetchData from './mockFetchData.js';
+import { shallow, mount, render } from 'enzyme';
 import App from '../client/components/App.jsx';
 
-import { shallow, mount, render } from 'enzyme';
-
 describe('<App />', () => {
-    test('handles styled components', () => {
-        const wrapper = shallow(<App />);
-        const target = wrapper.find('Review');
-        console.log(target);
-        expect(target.length).toBeGreaterThan(0);
+    let spy;
+    beforeEach(() => {
+        fetch.resetMocks();
+        fetch.mockResponseOnce(JSON.stringify(
+            mockFetchData
+        ));
+    });
+
+    afterEach(() => {
+        spy.mockClear();
+    });
+
+    test('does mount successfully', () => {
+        spy = jest.spyOn(App.prototype, 'componentDidMount');
+        mount(<App />);
+        expect(spy).toHaveBeenCalled();
+    });
+
+    test('renders the basic app view', () => {
+        const mounted = mount(<App />);
+        expect(mounted.find('StyledApp').length).toBe(1);
     });
 });
