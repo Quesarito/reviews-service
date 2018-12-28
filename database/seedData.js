@@ -6,8 +6,8 @@ const db = Promise.promisifyAll(require('./index').db);
 let NUM_PRODUCTS = 100;
 let NUM_AUTHORS = 100;
 let NUM_REVIEWS = 200;
-let NUM_RATINGS_FEATURE = 10;
-let NUM_MEDIA = 5;
+let NUM_FEATURES = 10;
+let NUM_MEDIA = 50;
 
 let getRandomInt = function(start, stop) {
   return Math.floor((Math.random() * (stop - start)) + start);
@@ -46,7 +46,7 @@ let generateReviews = function(num = NUM_REVIEWS) {
   });
 };
 
-let generateFeatureRatings = function(num = NUM_RATINGS_FEATURE) {
+let generateFeatureRatings = function(num = NUM_FEATURES) {
   return Array.from({length: num}, r => {
     return [
       faker.commerce.productAdjective(), //feature
@@ -82,7 +82,7 @@ let mysqlReady = (arr) => {
 let qProducts = `INSERT INTO products VALUES ${mysqlReady(products)}`;
 let qAuthors = `INSERT INTO authors VALUES ${mysqlReady(authors)}`;
 let qReviews = `INSERT INTO reviews VALUES ${mysqlReady(reviews)}`;
-let qFeatures = `INSERT INTO ratings_feature VALUES ${mysqlReady(features)}`;
+let qFeatures = `INSERT INTO features VALUES ${mysqlReady(features)}`;
 let qMedia = `INSERT INTO media VALUES ${mysqlReady(media)}`;
 
 db.queryAsync(qProducts)

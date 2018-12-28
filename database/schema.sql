@@ -27,7 +27,7 @@ CREATE TABLE reviews (
 	FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
-CREATE TABLE ratings_feature (
+CREATE TABLE features (
 	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	feature VARCHAR(80),
 	rating DOUBLE,
