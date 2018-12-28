@@ -1,55 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import {GlobalStyles} from './StyledComponents.jsx';
 import StarRatings from './StarRatings.jsx';
-import {createGlobalStyle} from 'styled-components';
-import AmazonEmber from '../styles/fonts/AmazonEmber_Rg.ttf';
-import AmazonEmberBold from '../styles/fonts/AmazonEmber_Bd.ttf';
 import ReviewList from './ReviewList.jsx';
-import ReviewModal from './ReviewModal.jsx';
-import CustomerImages from './CustomerImages.jsx';
+import ImageModal from './ImageModal.jsx';
+import CustomerImageList from './CustomerImageList.jsx';
 import Keywords from './Keywords.jsx';
 
-const GlobalStyles = createGlobalStyle`
-  @font-face {
-    font-family: 'Amazon Ember';
-    src: url('${AmazonEmber}') format('truetype');
-    font-weight: normal;
-  }
-  @font-face {
-    font-family: 'Amazon Ember';
-    src: url('${AmazonEmberBold}') format('truetype');
-    font-weight: bold;
-  }
-  body {
-    font-family: 'Amazon Ember', Arial, sans-serif;
-
-  }
-  
-  .review-wrapper {
-    margin-left: 70px;
-  }
-
-  .gray {
-    color: #555;
-  }
-
-  .lightgray {
-    color: #767676;
-  }
-
-  .orange {
-    color: #c45500;
-  }
-
-  .blue {
-    color: #0066c0;
-  }
-
-  .flex-left-center {
-    display: flex;
-    align-items: center;
-  }
-`;
 
 const StyledApp = styled.div`
   display: flex;
@@ -62,7 +19,8 @@ class App extends React.Component {
       allReviews: {},
       starData: {},
       featureData: {},
-      productId: 94
+      productId: 55,
+      displayModal: false
     };
   } 
 
@@ -96,13 +54,28 @@ class App extends React.Component {
       });
   }
 
-  
+  //Click handler for image thumbnails
+  displayImageInModal(e) {
+    e.preventDefault();
+    this.setState(
+      {displayModal: !this.state.displayModal}, 
+      err => {
+        if (err) {
+          console.log('Error in setting modal display state');
+          throw err;
+        }
+      }
+    );
+  }
 
   render() {
     return (
       <StyledApp>
         <GlobalStyles />
-        {/* <ReviewModal /> */}
+        {
+          (!this.state.displayModal) ? '' :
+            <ImageModal />
+        }
         {
           (!this.state.starData.hasOwnProperty('total')) ? '' : 
             <StarRatings 
@@ -110,13 +83,14 @@ class App extends React.Component {
               featureData={this.state.featureData}/>
         }
         <div className="review-wrapper">
-          <CustomerImages />
           {
             (!this.state.allReviews.hasOwnProperty(this.state.productId)) ? '' : 
-              <>
+            <>
+              <CustomerImageList displayImageInModal={this.displayImageInModal.bind(this)}/>
               <Keywords />
-              <ReviewList reviews={this.state.allReviews[this.state.productId]} />
-              </>
+              <ReviewList reviews={this.state.allReviews[this.state.productId]} 
+                displayImageInModal={this.displayImageInModal.bind(this)}/>
+            </>
           }
         </div>
       </StyledApp>

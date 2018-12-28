@@ -7,7 +7,7 @@ const Header = styled.div`
     height:40px;
 `;
 
-const StyledReviewModal = styled.div`
+const StyledImageModal = styled.div`
     background-color: #fff;
     border-radius: 2px;
     width: 600px;
@@ -25,10 +25,10 @@ const StyledDim = styled.div`
     left:0;
 `;
 
-const ReviewModal = () => {
+const ImageModal = () => {
     return (
         <>
-        <StyledReviewModal>
+        <StyledImageModal>
             <Header>
                 X
             </Header>
@@ -36,10 +36,10 @@ const ReviewModal = () => {
             <div className="big-img">BIG IMAGE</div>
             <div className="review">Modified review</div>
             <div className="gallery">Images in this review</div>
-        </StyledReviewModal>
+        </StyledImageModal>
         <StyledDim />
         </>
     );
 };
 
-export default ReviewModal;
+export default ImageModal;

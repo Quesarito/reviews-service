@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import {FiveStarSmall} from './FiveStar.jsx';
 import {formatDate} from '../helpers';
-import StyledButton from './StyledButton.jsx';
+import CustomerImage from './CustomerImage.jsx';
+import {StyledButton} from './StyledComponents.jsx';
 
 const StyledDiv = styled.div`
   color: black;
@@ -17,6 +18,10 @@ const StyledDiv = styled.div`
   .verified {
     font-weight: bold;
     font-size: 11px;
+  }
+
+  .review-body {
+    margin: 10px 0;
   }
 `;
 
@@ -36,6 +41,15 @@ const StyledHeader = styled.div`
 
   div {
     margin: 2px 10px 0 0;
+  }
+`;
+
+const StyledImageList = styled.div`
+
+  a {
+    height: 88px;
+    width: auto;
+    margin-right: 1px;
   }
 `;
 
@@ -59,7 +73,7 @@ const HelpfulButton = styled(StyledButton)`
 `;
 
 
-const Review = ({productReview}) => {
+const Review = ({productReview, displayImageInModal}) => {
   return (
     <StyledDiv className="Review">
       {/* HEADER: AUTHOR INFO */}
@@ -79,8 +93,14 @@ const Review = ({productReview}) => {
         <div className="orange verified">{(productReview.verified) ? 'Verified Purchase' : ''}</div>
       </StyledHeader>
 
-      <div>{productReview.body}</div>
+      <div className="review-body">{productReview.body}</div>
+      {/* READ MORE TAG HERE */}
 
+      {/* IMAGE THUMBNAILS HERE */}
+      <StyledImageList>
+        {productReview.media.map(url => <CustomerImage src={url} displayImageInModal={displayImageInModal}/>)}
+      </StyledImageList>
+      
       <StyledFooter>
         <div className="helpful">{productReview.helpful} people found this helpful</div>
         <div>
