@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import {FiveStarSmall} from './FiveStar.jsx';
 import {formatDate} from '../helpers';
+import StyledButton from './StyledButton.jsx';
+
 const StyledDiv = styled.div`
   color: black;
   font-size: 13px;
@@ -49,6 +51,13 @@ const StyledFooter = styled.div`
   }  
 `;
 
+const HelpfulButton = styled(StyledButton)`
+  width:auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-right: 10px;
+`;
+
 
 const Review = ({productReview}) => {
   return (
@@ -75,7 +84,7 @@ const Review = ({productReview}) => {
       <StyledFooter>
         <div className="helpful">{productReview.helpful} people found this helpful</div>
         <div>
-          <button>Helpful</button> 
+          <HelpfulButton>Helpful</HelpfulButton> 
           <span className="gray">| Contact | Report abuse</span>
         </div>
       </StyledFooter>

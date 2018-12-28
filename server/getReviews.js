@@ -5,7 +5,21 @@ const getReviewData = (req, res, next) => {
     if (err) {
       res.status(500).send(err);
     }
-    res.reviewData = results;
+    let mediaURLs = {};
+    let filtered = results.filter(row => {
+      if (!mediaURLs.hasOwnProperty(row.id)) {
+        //Put URL into property array 
+        //So any future URLs for the same review can be stored there too
+        row.media = (row.media !== null) ? [row.media] : [];
+        mediaURLs[row.id] = row.media; //Set reference to the first's media property array
+        return true; //Keep the current review row
+      }
+      if (row.media !== null) {
+        mediaURLs[row.id].push(row.media); //Add duplicate's media URL to array
+      }
+      return false; //Discard review duplicate
+    });
+    res.reviewData = filtered;
     next();
   });
 };

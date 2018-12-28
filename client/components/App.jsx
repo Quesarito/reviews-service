@@ -5,6 +5,7 @@ import {createGlobalStyle} from 'styled-components';
 import AmazonEmber from '../styles/fonts/AmazonEmber_Rg.ttf';
 import AmazonEmberBold from '../styles/fonts/AmazonEmber_Bd.ttf';
 import ReviewList from './ReviewList.jsx';
+import ReviewModal from './ReviewModal.jsx';
 import CustomerImages from './CustomerImages.jsx';
 import Keywords from './Keywords.jsx';
 
@@ -101,6 +102,7 @@ class App extends React.Component {
     return (
       <StyledApp>
         <GlobalStyles />
+        {/* <ReviewModal /> */}
         {
           (!this.state.starData.hasOwnProperty('total')) ? '' : 
             <StarRatings 
