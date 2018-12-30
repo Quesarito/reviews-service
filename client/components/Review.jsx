@@ -72,19 +72,18 @@ const HelpfulButton = styled(StyledButton)`
   margin-right: 10px;
 `;
 
-
 const Review = ({productReview, displayImageInModal}) => {
   return (
     <StyledDiv className="Review">
       {/* HEADER: AUTHOR INFO */}
       <div className="flex-left-center">
-        <Avatar 
-          as="img"
+        <Avatar as="img"
           src={productReview.avatar}
         />
         {productReview.username}
       </div>
 
+      {/* HEADER: REVIEW INFO */}
       <StyledHeader>
         <div className="flex-left-center">
           <FiveStarSmall rating={productReview.stars}/> <SpanHeadline>{productReview.headline}</SpanHeadline>
@@ -93,20 +92,19 @@ const Review = ({productReview, displayImageInModal}) => {
         <div className="orange verified">{(productReview.verified) ? 'Verified Purchase' : ''}</div>
       </StyledHeader>
 
+      {/* REVIEW BODY -- add read more tag */}
       <div className="review-body">{productReview.body}</div>
-      {/* READ MORE TAG HERE */}
 
-      {/* IMAGE THUMBNAILS HERE */}
+      {/* IMAGE THUMBNAILS */}
       <StyledImageList>
         {productReview.media.map((mediaNode) => 
           <CustomerImage 
-            src={mediaNode.url}
-            mediaIndex={mediaNode.index}
-            reviewIndex={mediaNode.reviewIndex}
+            mediaNode={mediaNode}
             displayImageInModal={displayImageInModal}
           />)}
       </StyledImageList>
       
+      {/* FOOTER: HELPFUL, CONTACT, REPORT */}
       <StyledFooter>
         <div className="helpful">{productReview.helpful} people found this helpful</div>
         <div>

@@ -1,21 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Thumbnail = styled.img`
+const StyledImage = styled.img`
   border: solid 1px red;
   content: url('${props => props.src}');
-  content: attr(data-review-id)
   :hover {
     border: solid 1px green;
   }
 `;
 
-const CustomerImage = ({src, reviewIndex, mediaIndex, displayImageInModal}) => {
+const CustomerImage = ({className, mediaNode, displayImageInModal}) => {
   return (
-    <Thumbnail as="a" href="#" 
-      src={src} 
-      data-review-index={reviewIndex}
-      data-media-index={mediaIndex}
+    <StyledImage as="a" href="#" 
+      className={className}
+      src={mediaNode.url} 
+      data-review-index={mediaNode.reviewIndex}
+      data-media-index={mediaNode.index}
       onClick={displayImageInModal}/>
   );
 };

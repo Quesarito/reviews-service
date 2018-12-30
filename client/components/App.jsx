@@ -60,11 +60,9 @@ class App extends React.Component {
         console.log('Error in setState');
         throw err;
       }
-      console.log(this.state);
     });
   }
 
-  //Click handler for image thumbnails
   displayImageInModal(e) {
     e.preventDefault();
     let data = e.target.dataset;
@@ -81,6 +79,7 @@ class App extends React.Component {
 
   toggleModal() {
     return (e) => {
+      e.preventDefault();
       this.setState({
         modal: {
           display: !this.state.modal.display,
@@ -97,12 +96,12 @@ class App extends React.Component {
     return (
       <StyledApp>
         <GlobalStyles />
-        <button onClick={this.toggleModal()}>toggle</button>
         {
           (!this.state.modal.display) ? '' :
             <ImageModal 
               mediaIndex={this.state.modal.mediaIndex}
               productReview={this.state.reviewData[this.state.modal.reviewIndex]}
+              mediaList={this.state.mediaList}
               toggleModal={this.toggleModal()}
               displayImageInModal={this.displayImageInModal.bind(this)}/>
         }
@@ -117,7 +116,8 @@ class App extends React.Component {
             (!this.state.reviewData.length > 0) ? '' : 
             <>
               <CustomerImageList 
-                mediaList={this.mediaList}
+                mediaList={this.state.mediaList}
+                toggleModal={this.toggleModal()}
                 displayImageInModal={this.displayImageInModal.bind(this)}/>
               <Keywords />
               <ReviewList reviews={this.state.reviewData} 
