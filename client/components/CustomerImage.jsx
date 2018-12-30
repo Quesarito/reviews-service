@@ -10,11 +10,11 @@ const Thumbnail = styled.img`
   }
 `;
 
-const CustomerImage = ({src, reviewId, mediaIndex, displayImageInModal}) => {
+const CustomerImage = ({src, reviewIndex, mediaIndex, displayImageInModal}) => {
   return (
     <Thumbnail as="a" href="#" 
       src={src} 
-      data-review-id={reviewId}
+      data-review-index={reviewIndex}
       data-media-index={mediaIndex}
       onClick={displayImageInModal}/>
   );

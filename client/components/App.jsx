@@ -7,7 +7,6 @@ import ImageModal from './ImageModal.jsx';
 import Keywords from './Keywords.jsx';
 import ReviewList from './ReviewList.jsx';
 
-
 const StyledApp = styled.div`
   display: flex;
 `;
@@ -23,7 +22,7 @@ class App extends React.Component {
       modal: {
         display: false,
         mediaIndex: -1, //Default to gallery view
-        reviewId: -1
+        reviewIndex: -1
       }
     };
   } 
@@ -65,8 +64,8 @@ class App extends React.Component {
     this.setState({
         modal: {
           display: true,
-          mediaIndex: data.mediaIndex,
-          reviewId: data.reviewId
+          mediaIndex: parseInt(data.mediaIndex),
+          reviewIndex: parseInt(data.reviewIndex)
         }
     }, err => {
       if (err) throw err;
@@ -83,20 +82,12 @@ class App extends React.Component {
         modal: {
           display: !this.state.modal.display,
           mediaIndex: -1,
-          reviewId: -1
+          reviewIndex: -1
         }
       }, err => {
         if (err) throw err;
         console.log('toggled modal: ', this.state.modal);
       });
-      // this.setState(
-      //   {displayModal: !this.state.displayModal}, err => {
-      //     if (err) {
-      //       console.log('Error in setting modal display state');
-      //       throw err;
-      //     }
-      //   }
-      // );
     }
   }
 
@@ -107,7 +98,13 @@ class App extends React.Component {
         <button onClick={this.toggleModal()}>toggle</button>
         {
           (!this.state.modal.display) ? console.log('APP', 'modal off') :
-            <ImageModal toggleModal={this.toggleModal()}/>
+            <ImageModal 
+              mediaIndex={this.state.modal.mediaIndex}
+              reviewIndex={this.state.modal.reviewIndex}
+              productReview={this.state.allReviews[this.state.productId][this.state.modal.reviewIndex]}
+              toggleModal={this.toggleModal()}
+              displayImageInModal={this.displayImageInModal.bind(this)}/>
+            // console.log(this.state.allReviews[this.state.productId][this.state.modal.reviewIndex])
         }
         {
           (!this.state.starData.hasOwnProperty('total')) ? '' : 

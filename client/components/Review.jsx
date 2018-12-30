@@ -73,7 +73,7 @@ const HelpfulButton = styled(StyledButton)`
 `;
 
 
-const Review = ({productReview, displayImageInModal}) => {
+const Review = ({productReview, reviewIndex, displayImageInModal}) => {
   return (
     <StyledDiv className="Review">
       {/* HEADER: AUTHOR INFO */}
@@ -101,7 +101,7 @@ const Review = ({productReview, displayImageInModal}) => {
         {productReview.media.map((url, i) => 
           <CustomerImage 
             src={url} 
-            reviewId={productReview.id}
+            reviewIndex={reviewIndex}
             mediaIndex={i}
             displayImageInModal={displayImageInModal}
           />)}
