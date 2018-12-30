@@ -22,10 +22,10 @@ const StyledImageModal = styled.div`
     }
 `;
 
-const LargeImage = styled(CustomerImage)`
+const LargeImage = styled.img`
     height:auto;
     width:200px;
-    border: solid 1px blue;
+    border-radius: 10px;
 `;
 
 const StyledDim = styled.div`
@@ -37,7 +37,8 @@ const StyledDim = styled.div`
     left:0;
 `;
 
-const ImageModal = ({toggleModal, displayImageInModal, mediaIndex, reviewIndex, productReview}) => {
+const ImageModal = ({toggleModal, displayImageInModal, mediaIndex, productReview}) => {
+    console.log({toggleModal, displayImageInModal, mediaIndex, productReview});
     return (
         <>
         <StyledImageModal>
@@ -47,17 +48,17 @@ const ImageModal = ({toggleModal, displayImageInModal, mediaIndex, reviewIndex, 
             <div>View image gallery</div>
             <div className="big-img">
                 {
-                    <LargeImage src={productReview.media[mediaIndex]} />
+                    <LargeImage src={productReview.media[mediaIndex].url} />
                 }
             </div>
             <div className="review">{productReview.body}</div>
             <div className="gallery">
                 <div>Images in this review</div>
-                {productReview.media.map((url, i) => 
+                {productReview.media.map((mediaNode) => 
                 <CustomerImage 
-                    src={url} 
-                    reviewIndex={reviewIndex}
-                    mediaIndex={i}
+                    src={mediaNode.url} 
+                    reviewIndex={mediaNode.reviewIndex}
+                    mediaIndex={mediaNode.index}
                     displayImageInModal={displayImageInModal}
                 />)}
             </div>

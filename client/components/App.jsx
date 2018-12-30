@@ -6,6 +6,7 @@ import CustomerImageList from './CustomerImageList.jsx';
 import ImageModal from './ImageModal.jsx';
 import Keywords from './Keywords.jsx';
 import ReviewList from './ReviewList.jsx';
+import {buildMediaList} from '../helpers';
 
 const StyledApp = styled.div`
   display: flex;
@@ -15,13 +16,14 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      allReviews: {},
+      reviewData: [],
       starData: {},
       featureData: {},
+      mediaList: null,
       productId: 55,
       modal: {
         display: false,
-        mediaIndex: -1, //Default to gallery view
+        mediaIndex: -1,
         reviewIndex: -1
       }
     };
@@ -38,23 +40,28 @@ class App extends React.Component {
       .then(res => {
         return res.json();
       })
-      .then(({reviewData, starData, featureData}) => {
-        let update = this.state.allReviews;
-        update[productId] = reviewData;
-        this.setState({
-          starData,
-          featureData,
-          allReviews: update,
-        }, err => {
-          if (err) {
-            console.log('Error in setState');
-            throw err;
-          }
-        });
+      .then(reviews => {
+        this.processReviews(reviews);
       })
       .catch(err => {
         console.log('ERROR FETCHING REVIEWS****************', err);
       });
+  }
+
+  processReviews({reviewData, starData, featureData}) {
+    let mediaList = buildMediaList(reviewData);
+    this.setState({
+      reviewData,
+      starData,
+      featureData,
+      mediaList
+    }, err => {
+      if (err) {
+        console.log('Error in setState');
+        throw err;
+      }
+      console.log(this.state);
+    });
   }
 
   //Click handler for image thumbnails
@@ -69,15 +76,11 @@ class App extends React.Component {
         }
     }, err => {
       if (err) throw err;
-      console.log('displayed image', this.state.displayModal);
     });
-
   }
 
   toggleModal() {
     return (e) => {
-      console.log(this);
-      console.log(e.target);
       this.setState({
         modal: {
           display: !this.state.modal.display,
@@ -86,7 +89,6 @@ class App extends React.Component {
         }
       }, err => {
         if (err) throw err;
-        console.log('toggled modal: ', this.state.modal);
       });
     }
   }
@@ -97,14 +99,12 @@ class App extends React.Component {
         <GlobalStyles />
         <button onClick={this.toggleModal()}>toggle</button>
         {
-          (!this.state.modal.display) ? console.log('APP', 'modal off') :
+          (!this.state.modal.display) ? '' :
             <ImageModal 
               mediaIndex={this.state.modal.mediaIndex}
-              reviewIndex={this.state.modal.reviewIndex}
-              productReview={this.state.allReviews[this.state.productId][this.state.modal.reviewIndex]}
+              productReview={this.state.reviewData[this.state.modal.reviewIndex]}
               toggleModal={this.toggleModal()}
               displayImageInModal={this.displayImageInModal.bind(this)}/>
-            // console.log(this.state.allReviews[this.state.productId][this.state.modal.reviewIndex])
         }
         {
           (!this.state.starData.hasOwnProperty('total')) ? '' : 
@@ -114,11 +114,13 @@ class App extends React.Component {
         }
         <div className="review-wrapper">
           {
-            (!this.state.allReviews.hasOwnProperty(this.state.productId)) ? '' : 
+            (!this.state.reviewData.length > 0) ? '' : 
             <>
-              <CustomerImageList displayImageInModal={this.displayImageInModal.bind(this)}/>
+              <CustomerImageList 
+                mediaList={this.mediaList}
+                displayImageInModal={this.displayImageInModal.bind(this)}/>
               <Keywords />
-              <ReviewList reviews={this.state.allReviews[this.state.productId]} 
+              <ReviewList reviews={this.state.reviewData} 
                 displayImageInModal={this.displayImageInModal.bind(this)}/>
             </>
           }

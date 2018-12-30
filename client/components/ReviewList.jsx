@@ -24,10 +24,9 @@ const ReviewList = ({reviews, displayImageInModal}) => {
         <option value="recent">Most recent</option>
       </select>
       {
-        reviews.map((review, i) => 
+        reviews.map(review => 
           <Review 
-            productReview={review} 
-            reviewIndex={i}
+            productReview={review}
             displayImageInModal={displayImageInModal}/>
         )
       }
