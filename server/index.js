@@ -7,6 +7,12 @@ const {getStarData, getReviewData, getFeatureData} = require('./getReviews.js');
 app.use(express.static('public'));
 app.use(bodyParser());
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.get('/reviews/:productId', 
   getReviewData, 
   getStarData, 

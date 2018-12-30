@@ -25,7 +25,7 @@ const StyledDim = styled.div`
     left:0;
 `;
 
-const ImageModal = () => {
+const ImageModal = ({toggleModal}) => {
     return (
         <>
         <StyledImageModal>
@@ -37,7 +37,7 @@ const ImageModal = () => {
             <div className="review">Modified review</div>
             <div className="gallery">Images in this review</div>
         </StyledImageModal>
-        <StyledDim />
+        <StyledDim onClick={toggleModal}/>
         </>
     );
 };

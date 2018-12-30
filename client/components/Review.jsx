@@ -98,7 +98,13 @@ const Review = ({productReview, displayImageInModal}) => {
 
       {/* IMAGE THUMBNAILS HERE */}
       <StyledImageList>
-        {productReview.media.map(url => <CustomerImage src={url} displayImageInModal={displayImageInModal}/>)}
+        {productReview.media.map((url, i) => 
+          <CustomerImage 
+            src={url} 
+            reviewId={productReview.id}
+            mediaIndex={i}
+            displayImageInModal={displayImageInModal}
+          />)}
       </StyledImageList>
       
       <StyledFooter>

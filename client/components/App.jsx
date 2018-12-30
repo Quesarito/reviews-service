@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import {GlobalStyles} from './StyledComponents.jsx';
 import StarRatings from './StarRatings.jsx';
-import ReviewList from './ReviewList.jsx';
-import ImageModal from './ImageModal.jsx';
 import CustomerImageList from './CustomerImageList.jsx';
+import ImageModal from './ImageModal.jsx';
 import Keywords from './Keywords.jsx';
+import ReviewList from './ReviewList.jsx';
 
 
 const StyledApp = styled.div`
@@ -20,7 +20,11 @@ class App extends React.Component {
       starData: {},
       featureData: {},
       productId: 55,
-      displayModal: false
+      modal: {
+        display: false,
+        mediaIndex: -1, //Default to gallery view
+        reviewId: -1
+      }
     };
   } 
 
@@ -57,24 +61,53 @@ class App extends React.Component {
   //Click handler for image thumbnails
   displayImageInModal(e) {
     e.preventDefault();
-    this.setState(
-      {displayModal: !this.state.displayModal}, 
-      err => {
-        if (err) {
-          console.log('Error in setting modal display state');
-          throw err;
+    let data = e.target.dataset;
+    this.setState({
+        modal: {
+          display: true,
+          mediaIndex: data.mediaIndex,
+          reviewId: data.reviewId
         }
-      }
-    );
+    }, err => {
+      if (err) throw err;
+      console.log('displayed image', this.state.displayModal);
+    });
+
+  }
+
+  toggleModal() {
+    return (e) => {
+      console.log(this);
+      console.log(e.target);
+      this.setState({
+        modal: {
+          display: !this.state.modal.display,
+          mediaIndex: -1,
+          reviewId: -1
+        }
+      }, err => {
+        if (err) throw err;
+        console.log('toggled modal: ', this.state.modal);
+      });
+      // this.setState(
+      //   {displayModal: !this.state.displayModal}, err => {
+      //     if (err) {
+      //       console.log('Error in setting modal display state');
+      //       throw err;
+      //     }
+      //   }
+      // );
+    }
   }
 
   render() {
     return (
       <StyledApp>
         <GlobalStyles />
+        <button onClick={this.toggleModal()}>toggle</button>
         {
-          (!this.state.displayModal) ? '' :
-            <ImageModal />
+          (!this.state.modal.display) ? console.log('APP', 'modal off') :
+            <ImageModal toggleModal={this.toggleModal()}/>
         }
         {
           (!this.state.starData.hasOwnProperty('total')) ? '' : 
