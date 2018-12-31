@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import CustomerImage from './CustomerImage.jsx';
+import {CustomerThumbnail} from './CustomerImage.jsx';
+import {StyledLink} from './StyledComponents.jsx';
 
-const Thumbnail = styled(CustomerImage)`
+const Thumbnail = styled(CustomerThumbnail)`
   height: 100px;
-  width: auto;
+  width: 100px;
   margin-right: 5px;
 `;
 
 const StyledGallery = styled.div`
   display: flex;
+  margin-bottom: 15px;
 `;
 
 const CustomerImageList = ({mediaList, toggleModal, displayImageInModal}) => {
@@ -30,7 +32,7 @@ const CustomerImageList = ({mediaList, toggleModal, displayImageInModal}) => {
       <StyledGallery>
         {customerImages}
       </StyledGallery>
-      <a href="#" onClick={toggleModal}>See all customer images</a>
+      <StyledLink href="#" onClick={toggleModal}>See all customer images</StyledLink>
     </div>
   );
 };

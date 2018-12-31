@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import CustomerImage from './CustomerImage.jsx';
+import {CustomerThumbnail} from './CustomerImage.jsx';
 import {FiveStarSmall} from './FiveStar.jsx';
 import {formatDate} from '../helpers';
 import {Sprite} from './StyledComponents.jsx';
@@ -165,7 +165,7 @@ const StyledReview = styled.div`
   }
 `;
 
-const Thumbnail = styled(CustomerImage)`
+const Thumbnail = styled(CustomerThumbnail)`
   height: 48px;
   width: 48px;
   box-sizing: border-box;

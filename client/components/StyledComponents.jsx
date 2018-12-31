@@ -18,7 +18,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-family: 'Amazon Ember', Arial, sans-serif;
   }
-  
+
   .review-wrapper {
     margin-left: 70px;
   }
@@ -80,4 +80,15 @@ const Sprite = styled.div`
   }
 `;
 
-export {GlobalStyles, StyledButton, Sprite};
+const StyledLink = styled.a`
+  color: #0066c0;
+  font-size: 13px;
+  text-decoration: none;
+
+  :hover {
+    color: #c45500;
+    text-decoration: underline;
+  }
+`;
+
+export {GlobalStyles, StyledButton, Sprite, StyledLink};

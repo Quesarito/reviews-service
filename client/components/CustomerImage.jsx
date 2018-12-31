@@ -4,6 +4,12 @@ import styled from 'styled-components';
 const StyledImage = styled.img`
   content: url('${props => props.src}');
 `;
+const StyledThumbnail = styled.div`
+  background: url('${props => props.src}') center/cover; 
+  height: 100px;
+  width: 100px;
+  display: inline-block;
+`;
 
 const CustomerImage = ({className, mediaNode, displayImageInModal}) => {
   return (
@@ -16,4 +22,15 @@ const CustomerImage = ({className, mediaNode, displayImageInModal}) => {
   );
 };
 
-export default CustomerImage;
+const CustomerThumbnail = ({className, mediaNode, displayImageInModal}) => {
+  return (
+    <StyledThumbnail as="a" href="#" 
+      className={className}
+      src={mediaNode.url} 
+      data-review-index={mediaNode.reviewIndex}
+      data-media-index={mediaNode.index}
+      onClick={displayImageInModal}/>
+  );
+};
+
+export {CustomerImage, CustomerThumbnail};

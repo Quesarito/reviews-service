@@ -2,14 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import {FiveStarSmall} from './FiveStar.jsx';
 import {formatDate} from '../helpers';
-import CustomerImage from './CustomerImage.jsx';
-import {StyledButton} from './StyledComponents.jsx';
+import {CustomerImage} from './CustomerImage.jsx';
+import {StyledButton, StyledLink} from './StyledComponents.jsx';
 
 const StyledDiv = styled.div`
   color: black;
   font-size: 13px;
   margin: 10px 0;
   padding: 10px;
+
+  a {
+    color: black;
+  }
 
   .helpful {
     color: #767676;
@@ -32,7 +36,7 @@ const Avatar = styled.div`
   margin-right: 10px;
 `;
 
-const SpanHeadline = styled.span`
+const ReviewHeadline = styled(StyledLink)`
   font-weight:700;
 `;
 
@@ -45,7 +49,6 @@ const StyledHeader = styled.div`
 `;
 
 const StyledImageList = styled.div`
-
   a {
     height: 88px;
     width: auto;
@@ -86,7 +89,8 @@ const Review = ({productReview, displayImageInModal}) => {
       {/* HEADER: REVIEW INFO */}
       <StyledHeader>
         <div className="flex-left-center">
-          <FiveStarSmall rating={productReview.stars}/> <SpanHeadline>{productReview.headline}</SpanHeadline>
+          <FiveStarSmall rating={productReview.stars}/> 
+          <ReviewHeadline as="a" href="#">{productReview.headline}</ReviewHeadline>
         </div>  
         <div className="gray">{formatDate(productReview.posted)}</div>
         <div className="orange verified">{(productReview.verified) ? 'Verified Purchase' : ''}</div>
@@ -109,7 +113,7 @@ const Review = ({productReview, displayImageInModal}) => {
         <div className="helpful">{productReview.helpful} people found this helpful</div>
         <div>
           <HelpfulButton>Helpful</HelpfulButton> 
-          <span className="gray">| Contact | Report abuse</span>
+          <span className="gray">| <StyledLink href="#">Comment</StyledLink> | <StyledLink href="#">Report abuse</StyledLink></span>
         </div>
       </StyledFooter>
     </StyledDiv>
