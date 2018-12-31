@@ -10,6 +10,7 @@ import {buildMediaList} from '../helpers';
 
 const StyledApp = styled.div`
   display: flex;
+  overflow: ${props => (props.scrollable) ? 'scroll' : 'hidden'};
 `;
 
 class App extends React.Component {
@@ -66,6 +67,7 @@ class App extends React.Component {
   displayImageInModal(e) {
     e.preventDefault();
     let data = e.target.dataset;
+    document.documentElement.style.overflow = 'hidden';
     this.setState({
         modal: {
           display: true,
@@ -88,13 +90,14 @@ class App extends React.Component {
         }
       }, err => {
         if (err) throw err;
+        document.documentElement.style.overflow = (this.state.modal.display) ? 'hidden' : 'scroll';
       });
     }
   }
 
   render() {
     return (
-      <StyledApp>
+      <StyledApp scrollable={!this.state.modal.display}>
         <GlobalStyles />
         {
           (!this.state.modal.display) ? '' :

@@ -1,33 +1,104 @@
 import React from 'react';
 import styled from 'styled-components';
+import sprites from '../styles/sprites.png';
 import CustomerImage from './CustomerImage.jsx';
 
-const Header = styled.div`
-  background: linear-gradient(#f4f4f4, #e0e0e0);
-  box-shadow: inset 0px -1px 1px 0px rgb(0,0,0,0.2);
-  height:40px;
+const ModalWrapper = styled.div`
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
 `;
 
-const StyledImageModal = styled.div`
+const Header = styled.div`
+  background: linear-gradient(#f7f7f7, #eaeaea);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(255,255,255,.4);
+  border-bottom: solid 1px #bbb;
+  height:35px;
+  width: 100%;
+`;
+
+const ModalWindow = styled.div`
   background-color: #fff;
-  border-radius: 2px;
+  border-radius: 3px;
+  overflow:hidden;
   display: flex;
-  width: 600px;
-  position: fixed;
+  flex-direction: column;
+  width: 80%;
+  height: 80%;
   margin: auto;
   z-index: 10;
 `;
 
-const LargeImage = styled.img`
-  height:auto;
-  width:200px;
-  border-radius: 10px;
+const ModalReviewWrapper = styled.div`
+  width: 100%;
+  height: auto;
+  padding: 15px;
+  box-sizing: border-box;
+  flex-grow: 1;
+  display: flex;
+  align-items: stretch;
+`;
+
+const LinkToImageGallery = styled.div`
+  font-size: 13px;
+  font-weight: bold;
+  display: inline-block;
+  margin: 15px 0 0 15px;
+
+  div {
+    background: url(${sprites}) no-repeat;
+    background-position-y: -464px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: top;
+    z-index: -1;
+  }
+`;
+
+const LargeImage = styled.div`
+  background-color: #000;
+  flex-grow: 1;
+  display: flex;
+  max-width: 400px;
+  align-items: center;
+  margin-right: 15px;
+
+  img {
+    max-height: inherit;
+    max-width: 100%;
+  }
+`;
+
+const StyledReview = styled.div`
+  font-size: 13px;
+  line-height: 19px;
+  width: 300px;
+  flex-shrink: 0;
+  overflow: scroll;
 `;
 
 const Thumbnail = styled(CustomerImage)`
-  height: 100px;
-  width: auto;
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
   margin-right: 5px;
+`;
+
+const StyledGallery = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  margin: 15px;
+  overflow: scroll;
+`;
+
+const GalleryThumbnail = styled(Thumbnail)`
+  height: 170px;
+  width: 170px;
+  margin: 8px;
 `;
 
 const StyledDim = styled.div`
@@ -35,8 +106,6 @@ const StyledDim = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
-  top:0;
-  left:0;
 `;
 
 const ModalGallery = ({mediaList, displayImageInModal}) => {
@@ -44,41 +113,55 @@ const ModalGallery = ({mediaList, displayImageInModal}) => {
   let currentNode = mediaList.head;
   while (currentNode !== null) {
     customerImages.push(
-      <Thumbnail
+      <GalleryThumbnail
         mediaNode={currentNode}
         displayImageInModal={displayImageInModal}
       />
     );
     currentNode = currentNode.next;
   }
-  return customerImages;
+  return (
+    <StyledGallery>
+      {customerImages}
+    </StyledGallery>
+  );
 };
 
 const ModalReviews = ({productReview, mediaIndex, displayImageInModal}) => {
   //Add selected image highlight
   return (
-    <div>
-      <div><a 
+    <>
+      <LinkToImageGallery
         data-review-index={-1}
         data-media-index={-1}
         onClick={displayImageInModal}>
-        View image gallery
-      </a></div>
-      {<LargeImage src={productReview.media[mediaIndex].url}/>}
+        <div></div> View Image Gallery
+      </LinkToImageGallery>
 
-      <div className="review">{productReview.body}</div>
-      <div>
-        <div>Images in this review</div>
-        {
-          productReview.media.map(mediaNode => 
-            <Thumbnail 
+      <ModalReviewWrapper>
+        <LargeImage>
+          <img src={productReview.media[mediaIndex].url}/>
+        </LargeImage>
+
+        <StyledReview>
+          <span>{productReview.productName}</span>
+          <h3>{productReview.headline}</h3>
+          <p>By {productReview.username} on {productReview.posted}</p>
+          <p>{productReview.body}</p>
+        <div>
+          <div>Images in this review</div>
+          {
+            productReview.media.map(mediaNode => 
+              <Thumbnail 
               mediaNode={mediaNode}
               displayImageInModal={displayImageInModal}
-            />
-          )
-        }
-      </div>
-    </div>
+              />
+              )
+            }
+        </div>
+        </StyledReview>
+      </ModalReviewWrapper>
+    </>
   );
 };
 
@@ -87,8 +170,8 @@ const ImageModal = ({
   mediaList, mediaIndex, productReview
 }) => {
   return (
-    <>
-    <StyledImageModal>
+    <ModalWrapper>
+    <ModalWindow>
       <Header>
         X
       </Header>
@@ -105,9 +188,9 @@ const ImageModal = ({
           displayImageInModal={displayImageInModal}
           />
       }
-    </StyledImageModal>
+    </ModalWindow>
     <StyledDim onClick={toggleModal}/>
-    </>
+    </ModalWrapper>
   );
 };
 
