@@ -21,7 +21,7 @@ class App extends React.Component {
       starData: {},
       featureData: {},
       mediaList: null,
-      productId: 55,
+      productId: 99,
       modal: {
         display: false,
         mediaIndex: -1,
@@ -66,7 +66,6 @@ class App extends React.Component {
 
   displayImageInModal(e) {
     e.preventDefault();
-    console.log('DISPLAY IMAGE IN MODAL', e.currentTarget);
     let data = e.currentTarget.dataset;
     document.documentElement.style.overflow = 'hidden';
     this.setState({

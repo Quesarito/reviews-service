@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import sprites from '../styles/sprites.png';
 import CustomerImage from './CustomerImage.jsx';
 import {FiveStarSmall} from './FiveStar.jsx';
 import {formatDate} from '../helpers';
@@ -50,6 +49,7 @@ const XButton = styled(Sprite)`
 `;
 
 const ModalWindow = styled.div`
+  font-family: Arial, sans-serif;
   background-color: #fff;
   border-radius: 3px;
   overflow:hidden;
@@ -143,11 +143,32 @@ const StyledReview = styled.div`
   width: 300px;
   flex-shrink: 0;
   overflow: scroll;
+
+  .product-name {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  .headline {
+    font-weight: bold;
+
+    div {
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+  }
+  .byline {
+    font-size: 12px;
+  }
+  .review-images {
+    font-size: 17px;
+    margin-bottom: 5px;
+  }
 `;
 
 const Thumbnail = styled(CustomerImage)`
   height: 48px;
   width: 48px;
+  box-sizing: border-box;
   overflow: hidden;
   margin-right: 5px;
 `;
@@ -192,8 +213,6 @@ const ModalGallery = ({mediaList, displayImageInModal}) => {
 };
 
 const ModalReviews = ({productReview, mediaIndex, displayImageInModal}) => {
-  //Add selected image highlight
-  //Calculate previous and next images
   let currentNode = productReview.media[mediaIndex];
   return (
     <>
@@ -231,21 +250,29 @@ const ModalReviews = ({productReview, mediaIndex, displayImageInModal}) => {
         </LargeImage>
 
         <StyledReview>
-          <div>{productReview.productName}</div>
-          <FiveStarSmall rating={productReview.stars}/><h3>{productReview.headline}</h3>
-          <p className="gray">By {productReview.username} on {formatDate(productReview.posted)}</p>
+          <div className="product-name">{productReview.productName}</div>
+          <div className='headline'>
+            <FiveStarSmall rating={productReview.stars}/>
+            <span>{productReview.headline}</span>
+          </div>
+          <div className="byline gray">By {productReview.username} on {formatDate(productReview.posted)}</div>
           <p>{productReview.body}</p>
-        <div>
-          <div>Images in this review</div>
-          {
-            productReview.media.map(mediaNode => 
-              <Thumbnail 
-              mediaNode={mediaNode}
-              displayImageInModal={displayImageInModal}
-              />
-              )
-            }
-        </div>
+
+          <div>
+            <div className="review-images gray">Images in this review</div>
+            {
+              productReview.media.map(mediaNode => {
+                let className = (mediaNode.index === mediaIndex) ? 'selected-line' : '';
+                return (
+                  <Thumbnail 
+                  mediaNode={mediaNode}
+                  displayImageInModal={displayImageInModal}
+                  className={className}
+                  />
+                );
+              })
+              }
+          </div>
         </StyledReview>
       </ModalReviewWrapper>
     </>

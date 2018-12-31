@@ -2,11 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledImage = styled.img`
-  border: solid 1px red;
   content: url('${props => props.src}');
-  :hover {
-    border: solid 1px green;
-  }
 `;
 
 const CustomerImage = ({className, mediaNode, displayImageInModal}) => {
