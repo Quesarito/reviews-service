@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import sprites from '../styles/sprites.png';
 import CustomerImage from './CustomerImage.jsx';
 import {FiveStarSmall} from './FiveStar.jsx';
+import {formatDate} from '../helpers';
+import {Sprite} from './StyledComponents.jsx';
 
 const ModalWrapper = styled.div`
   display: flex;
@@ -19,6 +21,32 @@ const Header = styled.div`
   border-bottom: solid 1px #bbb;
   height:35px;
   width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+const XButton = styled(Sprite)`
+  height: 28px;
+  width: 28px;
+  margin-right: 5px;
+  opacity: 0.5;
+
+  :hover {
+    opacity: 0.8;
+  }
+
+  :focus {
+    box-shadow: 0 0 5px 1px rgb(230, 115, 34, 0.7);
+    border: solid 1px rgb(230, 115, 34);
+    opacity: 0.8;
+  }
+
+  div {
+    background-position: -293px 0px;
+    height: 19px;
+    width: 19px;
+  }
 `;
 
 const ModalWindow = styled.div`
@@ -43,38 +71,69 @@ const ModalReviewWrapper = styled.div`
   align-items: stretch;
 `;
 
-const LinkToImageGallery = styled.div`
+const LinkToImageGallery = styled(Sprite)`
   color: black;
   font-size: 13px;
   font-weight: bold;
   text-decoration: none;
-  display: flex;
-  align-items: center;
+  justify-content: flex-start;
   margin: 15px 0 0 15px;
 
-  :before {
-    background-image: url(${sprites});
+  div {
     background-size: 500px;
     background-position: -200px -4px;
     width: 19px;
     height: 19px;
     display: inline-block;
     margin-right: 5px;
-    content: '';
   }
 `;
 
 const LargeImage = styled.div`
   background-color: #000;
+  background-image: url(${props => props.src});
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100%;
   flex-grow: 1;
   display: flex;
   max-width: 400px;
-  align-items: center;
+  align-items: stretch;
   margin-right: 15px;
 
-  img {
-    max-height: inherit;
-    max-width: 100%;
+  div, a { /* wrapper div for sprites */
+    display: none;
+    opacity: 0.7;
+    
+     div { /* nested div for sprites */
+      background-size: 800px;
+      background-position-y: -1445px;
+      height: 62px;
+      width: 40px;    
+      margin: 0 10px;
+     }
+  }
+  
+  :hover {
+    div, a {
+      display: flex;
+    }
+  }
+`;
+
+const ToPrevImage = styled(Sprite)`
+  flex: 1;
+  justify-content: flex-start;
+  div {
+    background-position-x: -6px;
+  }
+`;
+
+const ToNextImage = styled(Sprite)`
+  flex: 3;
+  justify-content: flex-end;
+  div {
+    background-position-x: -80px;
   }
 `;
 
@@ -87,8 +146,8 @@ const StyledReview = styled.div`
 `;
 
 const Thumbnail = styled(CustomerImage)`
-  height: 50px;
-  width: 50px;
+  height: 48px;
+  width: 48px;
   overflow: hidden;
   margin-right: 5px;
 `;
@@ -134,6 +193,8 @@ const ModalGallery = ({mediaList, displayImageInModal}) => {
 
 const ModalReviews = ({productReview, mediaIndex, displayImageInModal}) => {
   //Add selected image highlight
+  //Calculate previous and next images
+  let currentNode = productReview.media[mediaIndex];
   return (
     <>
       <LinkToImageGallery
@@ -141,18 +202,38 @@ const ModalReviews = ({productReview, mediaIndex, displayImageInModal}) => {
         data-review-index={-1}
         data-media-index={-1}
         onClick={displayImageInModal}>
+        <div></div>
         View Image Gallery
       </LinkToImageGallery>
 
       <ModalReviewWrapper>
-        <LargeImage>
-          <img src={productReview.media[mediaIndex].url}/>
+        <LargeImage src={currentNode.url}>
+          {
+            (currentNode.prev === null) ? <ToPrevImage/>
+            : <ToPrevImage
+              as="a" href="#"
+              data-review-index={currentNode.prev.reviewIndex}
+              data-media-index={currentNode.prev.index}
+              onClick={displayImageInModal}>
+              <div></div>
+            </ToPrevImage>
+          }
+          {
+            (currentNode.next === null) ? <ToNextImage/>
+            : <ToNextImage
+              as="a" href="#"
+              data-review-index={currentNode.next.reviewIndex}
+              data-media-index={currentNode.next.index}
+              onClick={displayImageInModal}>
+              <div></div>
+            </ToNextImage>
+          }
         </LargeImage>
 
         <StyledReview>
           <div>{productReview.productName}</div>
           <FiveStarSmall rating={productReview.stars}/><h3>{productReview.headline}</h3>
-          <p>By {productReview.username} on {productReview.posted}</p>
+          <p className="gray">By {productReview.username} on {formatDate(productReview.posted)}</p>
           <p>{productReview.body}</p>
         <div>
           <div>Images in this review</div>
@@ -179,7 +260,10 @@ const ImageModal = ({
     <ModalWrapper>
     <ModalWindow>
       <Header>
-        X
+        <XButton as="a" href="#"
+          onClick={toggleModal}>
+          <div></div>
+        </XButton>
       </Header>
       {
         (mediaIndex === -1) 

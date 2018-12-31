@@ -66,7 +66,8 @@ class App extends React.Component {
 
   displayImageInModal(e) {
     e.preventDefault();
-    let data = e.target.dataset;
+    console.log('DISPLAY IMAGE IN MODAL', e.currentTarget);
+    let data = e.currentTarget.dataset;
     document.documentElement.style.overflow = 'hidden';
     this.setState({
         modal: {
