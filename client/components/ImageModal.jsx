@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import sprites from '../styles/sprites.png';
 import CustomerImage from './CustomerImage.jsx';
+import {FiveStarSmall} from './FiveStar.jsx';
 
 const ModalWrapper = styled.div`
   display: flex;
@@ -43,19 +44,23 @@ const ModalReviewWrapper = styled.div`
 `;
 
 const LinkToImageGallery = styled.div`
+  color: black;
   font-size: 13px;
   font-weight: bold;
-  display: inline-block;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
   margin: 15px 0 0 15px;
 
-  div {
-    background: url(${sprites}) no-repeat;
-    background-position-y: -464px;
-    width: 16px;
-    height: 16px;
+  :before {
+    background-image: url(${sprites});
+    background-size: 500px;
+    background-position: -200px -4px;
+    width: 19px;
+    height: 19px;
     display: inline-block;
-    vertical-align: top;
-    z-index: -1;
+    margin-right: 5px;
+    content: '';
   }
 `;
 
@@ -132,10 +137,11 @@ const ModalReviews = ({productReview, mediaIndex, displayImageInModal}) => {
   return (
     <>
       <LinkToImageGallery
+        as="a" href="#"
         data-review-index={-1}
         data-media-index={-1}
         onClick={displayImageInModal}>
-        <div></div> View Image Gallery
+        View Image Gallery
       </LinkToImageGallery>
 
       <ModalReviewWrapper>
@@ -144,8 +150,8 @@ const ModalReviews = ({productReview, mediaIndex, displayImageInModal}) => {
         </LargeImage>
 
         <StyledReview>
-          <span>{productReview.productName}</span>
-          <h3>{productReview.headline}</h3>
+          <div>{productReview.productName}</div>
+          <FiveStarSmall rating={productReview.stars}/><h3>{productReview.headline}</h3>
           <p>By {productReview.username} on {productReview.posted}</p>
           <p>{productReview.body}</p>
         <div>

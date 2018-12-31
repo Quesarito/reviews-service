@@ -70,7 +70,7 @@ let StarRatings = ({starData, featureData}) => {
         {(starData.total !== 1) ? ' reviews' : ' review'}
       </h2> 
       <div>
-        <FiveStarSmall rating={starData.average} />
+        <FiveStar rating={starData.average} />
         <span>{starData.average} out of 5 stars</span>
       </div>
       

@@ -6,23 +6,22 @@ import {setStars} from '../helpers';
 const StyledStars = styled.div`
   background-image: url(${stars});
   background-repeat: no-repeat;
-  background-position: -${({starRating}) => starRating}px top;
-  background-size: 780px;
+  background-position: -${({starRating}) => starRating}px -398px;
+  background-size: 400px;
   display: inline-block;
-  width: 160px;
-  height:30px;
+  width: 95px;
+  height:20px;
 `;
 
 const StyledStarsSmall = styled(StyledStars)`
-  background-position: -${({starRating}) => (starRating / 2)}px top;
-  background-size: 390px;
+  background-position: -${({starRating}) => (starRating)}px -369px;
   width: 80px;
   height: 15px;
 `;
 
 const FiveStar = ({rating}) => {
   return (
-    <StyledStars starRating={setStars(rating)}/>
+    <StyledStars starRating={setStars(rating, 'large')}/>
   );
 };
 
