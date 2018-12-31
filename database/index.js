@@ -10,7 +10,7 @@ db.connect();
 //Takes an object stating the search criteria
 const retrieve = (productId, type, callback) => {
   //product id as search criteria
-  let qComplete = `SELECT revs.*, media.file, 
+  let qComplete = `SELECT revs.*, media.file AS media, 
     features.feature, features.rating AS featureRating,
     authors.username, authors.avatar 
   FROM (SELECT products.name AS productName,

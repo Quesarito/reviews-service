@@ -1,54 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import {GlobalStyles} from './StyledComponents.jsx';
 import StarRatings from './StarRatings.jsx';
-import {createGlobalStyle} from 'styled-components';
-import AmazonEmber from '../styles/fonts/AmazonEmber_Rg.ttf';
-import AmazonEmberBold from '../styles/fonts/AmazonEmber_Bd.ttf';
-import ReviewList from './ReviewList.jsx';
-import CustomerImages from './CustomerImages.jsx';
+import CustomerImageList from './CustomerImageList.jsx';
+import ImageModal from './ImageModal.jsx';
 import Keywords from './Keywords.jsx';
-
-const GlobalStyles = createGlobalStyle`
-  @font-face {
-    font-family: 'Amazon Ember';
-    src: url('${AmazonEmber}') format('truetype');
-    font-weight: normal;
-  }
-  @font-face {
-    font-family: 'Amazon Ember';
-    src: url('${AmazonEmberBold}') format('truetype');
-    font-weight: bold;
-  }
-  body {
-    font-family: 'Amazon Ember', Arial, sans-serif;
-
-  }
-  
-  .review-wrapper {
-    margin-left: 70px;
-  }
-
-  .gray {
-    color: #555;
-  }
-
-  .lightgray {
-    color: #767676;
-  }
-
-  .orange {
-    color: #c45500;
-  }
-
-  .blue {
-    color: #0066c0;
-  }
-
-  .flex-left-center {
-    display: flex;
-    align-items: center;
-  }
-`;
+import ReviewList from './ReviewList.jsx';
+import {buildMediaList} from '../helpers';
 
 const StyledApp = styled.div`
   display: flex;
@@ -58,10 +16,16 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      allReviews: {},
+      reviewData: [],
       starData: {},
       featureData: {},
-      productId: 94
+      mediaList: null,
+      productId: 55,
+      modal: {
+        display: false,
+        mediaIndex: -1,
+        reviewIndex: -1
+      }
     };
   } 
 
@@ -76,31 +40,71 @@ class App extends React.Component {
       .then(res => {
         return res.json();
       })
-      .then(({reviewData, starData, featureData}) => {
-        let update = this.state.allReviews;
-        update[productId] = reviewData;
-        this.setState({
-          starData,
-          featureData,
-          allReviews: update,
-        }, err => {
-          if (err) {
-            console.log('Error in setState');
-            throw err;
-          }
-        });
+      .then(reviews => {
+        this.processReviews(reviews);
       })
       .catch(err => {
         console.log('ERROR FETCHING REVIEWS****************', err);
       });
   }
 
-  
+  processReviews({reviewData, starData, featureData}) {
+    let mediaList = buildMediaList(reviewData);
+    this.setState({
+      reviewData,
+      starData,
+      featureData,
+      mediaList
+    }, err => {
+      if (err) {
+        console.log('Error in setState');
+        throw err;
+      }
+    });
+  }
+
+  displayImageInModal(e) {
+    e.preventDefault();
+    let data = e.target.dataset;
+    this.setState({
+        modal: {
+          display: true,
+          mediaIndex: parseInt(data.mediaIndex),
+          reviewIndex: parseInt(data.reviewIndex)
+        }
+    }, err => {
+      if (err) throw err;
+    });
+  }
+
+  toggleModal() {
+    return (e) => {
+      e.preventDefault();
+      this.setState({
+        modal: {
+          display: !this.state.modal.display,
+          mediaIndex: -1,
+          reviewIndex: -1
+        }
+      }, err => {
+        if (err) throw err;
+      });
+    }
+  }
 
   render() {
     return (
       <StyledApp>
         <GlobalStyles />
+        {
+          (!this.state.modal.display) ? '' :
+            <ImageModal 
+              mediaIndex={this.state.modal.mediaIndex}
+              productReview={this.state.reviewData[this.state.modal.reviewIndex]}
+              mediaList={this.state.mediaList}
+              toggleModal={this.toggleModal()}
+              displayImageInModal={this.displayImageInModal.bind(this)}/>
+        }
         {
           (!this.state.starData.hasOwnProperty('total')) ? '' : 
             <StarRatings 
@@ -108,13 +112,17 @@ class App extends React.Component {
               featureData={this.state.featureData}/>
         }
         <div className="review-wrapper">
-          <CustomerImages />
           {
-            (!this.state.allReviews.hasOwnProperty(this.state.productId)) ? '' : 
-              <>
+            (!this.state.reviewData.length > 0) ? '' : 
+            <>
+              <CustomerImageList 
+                mediaList={this.state.mediaList}
+                toggleModal={this.toggleModal()}
+                displayImageInModal={this.displayImageInModal.bind(this)}/>
               <Keywords />
-              <ReviewList reviews={this.state.allReviews[this.state.productId]} />
-              </>
+              <ReviewList reviews={this.state.reviewData} 
+                displayImageInModal={this.displayImageInModal.bind(this)}/>
+            </>
           }
         </div>
       </StyledApp>

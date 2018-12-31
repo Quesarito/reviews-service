@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {FiveStar, FiveStarSmall} from './FiveStar.jsx';
+import {StyledButton} from './StyledComponents.jsx';
 import FeatureRating from './FeatureRating.jsx';
 
 const StyledStarRatings = styled.div`
@@ -113,7 +114,7 @@ let StarRatings = ({starData, featureData}) => {
       <Section>
         <h3>Review this product</h3>
         Share your thoughts with other customers
-        <button>Write a customer review</button>
+        <StyledButton>Write a customer review</StyledButton>
       </Section>
     </StyledStarRatings>
   );

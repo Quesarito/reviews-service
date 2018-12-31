@@ -15,17 +15,19 @@ const StyledReviewList = styled.div`
   }
 `;
 
-const ReviewList = ({reviews}) => {
+const ReviewList = ({reviews, displayImageInModal}) => {
   return (
     <StyledReviewList>
-      <span>Showing X-Y of Z reviews</span>
+      <span>Showing {1}-{reviews.length} of {reviews.length} reviews</span>
       <select id="showReviewsBy">
         <option value="top">Top Reviews</option>
         <option value="recent">Most recent</option>
       </select>
       {
         reviews.map(review => 
-          <Review productReview={review}/>
+          <Review 
+            productReview={review}
+            displayImageInModal={displayImageInModal}/>
         )
       }
     </StyledReviewList>
