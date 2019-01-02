@@ -4,8 +4,8 @@ import {CustomerThumbnail} from './CustomerImage.jsx';
 import {StyledLink} from './StyledComponents.jsx';
 
 const Thumbnail = styled(CustomerThumbnail)`
-  height: 100px;
-  width: 100px;
+  height: 140px;
+  width: 140px;
   margin-right: 5px;
 `;
 

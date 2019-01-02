@@ -21,7 +21,7 @@ class App extends React.Component {
       starData: {},
       featureData: {},
       mediaList: null,
-      productId: 99,
+      productId: 69,
       modal: {
         display: false,
         mediaIndex: -1,

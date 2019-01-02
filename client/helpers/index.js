@@ -1,3 +1,7 @@
+const prefaceURL = (path) => {
+  return `https://s3-us-west-1.amazonaws.com/crackling-iceberg-lettuce-120/images/${path}`;
+};
+
 const monthByNumber = [
   'January',
   'February',
@@ -76,4 +80,4 @@ const buildMediaList = reviewData => {
   return list;
 }
 
-export {formatDate, setStars, buildMediaList};
+export {prefaceURL, formatDate, setStars, buildMediaList};

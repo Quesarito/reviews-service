@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import {FiveStarSmall} from './FiveStar.jsx';
 import {formatDate} from '../helpers';
 import {CustomerImage} from './CustomerImage.jsx';
-import {StyledButton, StyledLink} from './StyledComponents.jsx';
+import {StyledButton, StyledLink, Sprite} from './StyledComponents.jsx';
+import dummyText from '../helpers/dummyText.js';
 
-const StyledDiv = styled.div`
+const parser = new DOMParser();
+const StyledReview = styled.div`
   color: black;
   font-size: 13px;
   margin: 10px 0;
@@ -22,10 +24,6 @@ const StyledDiv = styled.div`
   .verified {
     font-weight: bold;
     font-size: 11px;
-  }
-
-  .review-body {
-    margin: 10px 0;
   }
 `;
 
@@ -44,7 +42,18 @@ const StyledHeader = styled.div`
   margin: 10px 0;
 
   div {
-    margin: 2px 10px 0 0;
+    margin: 0 10px 0 0;
+  }
+`;
+
+const ReviewBody = styled.div`
+  background-color: rgb(234,193,203, 0.5);
+  max-height: 200px;
+  overflow: hidden;
+  margin: 10px 0;
+
+  p {
+    margin-top: 0;
   }
 `;
 
@@ -75,9 +84,54 @@ const HelpfulButton = styled(StyledButton)`
   margin-right: 10px;
 `;
 
+
+//Toggle read more/less display
+const toggleRead = (e) => {
+  let read = e.target;
+  let body = e.target.parentNode.parentNode;
+  console.log(read);
+  console.log(body);
+  // if (read.dataset.open) {
+  //   body.style('height', 200);
+  //   read.text = 'Read more';
+  // } else {
+  //   body.style('height', 'auto');
+  //   read.innerHTML = 'Read less';
+  // }
+}
+
+const StyledReadLess = styled(Sprite)`
+  position: absolute;
+  background-color: red;
+  height:50px;
+  width:100%;
+  bottom: 0;
+`;
+
+const ReadMore = () => {
+  <div>
+    <div>gradient</div>
+    <StyledLink 
+      data-open="false"
+      onClick={toggleRead}>
+      Read more
+    </StyledLink>
+  </div>
+}
+
+const ReadLess = () => 
+  <StyledReadLess>
+    <div></div>
+    <StyledLink 
+      data-open="true"
+      onClick={toggleRead}>
+      Read less
+    </StyledLink>
+  </StyledReadLess>;
+
 const Review = ({productReview, displayImageInModal}) => {
   return (
-    <StyledDiv className="Review">
+    <StyledReview className="Review">
       {/* HEADER: AUTHOR INFO */}
       <div className="flex-left-center">
         <Avatar as="img"
@@ -97,7 +151,10 @@ const Review = ({productReview, displayImageInModal}) => {
       </StyledHeader>
 
       {/* REVIEW BODY -- add read more tag */}
-      <div className="review-body">{productReview.body}</div>
+      <ReviewBody dangerouslySetInnerHTML={{__html: productReview.body}}>
+        {/* <ReadLess /> */}
+        {/* {productReview.body} */}
+      </ReviewBody>
 
       {/* IMAGE THUMBNAILS */}
       <StyledImageList>
@@ -116,7 +173,7 @@ const Review = ({productReview, displayImageInModal}) => {
           <span className="gray">| <StyledLink href="#">Comment</StyledLink> | <StyledLink href="#">Report abuse</StyledLink></span>
         </div>
       </StyledFooter>
-    </StyledDiv>
+    </StyledReview>
   );
 };
 

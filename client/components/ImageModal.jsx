@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {CustomerThumbnail} from './CustomerImage.jsx';
 import {FiveStarSmall} from './FiveStar.jsx';
-import {formatDate} from '../helpers';
+import {formatDate, prefaceURL} from '../helpers';
 import {Sprite} from './StyledComponents.jsx';
 
 const ModalWrapper = styled.div`
@@ -226,7 +226,7 @@ const ModalReviews = ({productReview, mediaIndex, displayImageInModal}) => {
       </LinkToImageGallery>
 
       <ModalReviewWrapper>
-        <LargeImage src={currentNode.url}>
+        <LargeImage src={prefaceURL(currentNode.url)}>
           {
             (currentNode.prev === null) ? <ToPrevImage/>
             : <ToPrevImage
@@ -256,7 +256,7 @@ const ModalReviews = ({productReview, mediaIndex, displayImageInModal}) => {
             <span>{productReview.headline}</span>
           </div>
           <div className="byline gray">By {productReview.username} on {formatDate(productReview.posted)}</div>
-          <p>{productReview.body}</p>
+          <div dangerouslySetInnerHTML={{__html: productReview.body}}></div>
 
           <div>
             <div className="review-images gray">Images in this review</div>
