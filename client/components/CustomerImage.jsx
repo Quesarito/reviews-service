@@ -34,4 +34,7 @@ const CustomerThumbnail = ({className, mediaNode, displayImageInModal}) => {
   );
 };
 
+CustomerImage.displayName = 'CustomerImage';
+CustomerThumbnail.displayName = 'CustomerThumbnail';
+
 export {CustomerImage, CustomerThumbnail};

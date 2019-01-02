@@ -4,9 +4,7 @@ import {FiveStarSmall} from './FiveStar.jsx';
 import {formatDate} from '../helpers';
 import {CustomerImage} from './CustomerImage.jsx';
 import {StyledButton, StyledLink, Sprite} from './StyledComponents.jsx';
-import dummyText from '../helpers/dummyText.js';
 
-const parser = new DOMParser();
 const StyledReview = styled.div`
   color: black;
   font-size: 13px;
@@ -47,7 +45,6 @@ const StyledHeader = styled.div`
 `;
 
 const ReviewBody = styled.div`
-  background-color: rgb(234,193,203, 0.5);
   max-height: 200px;
   overflow: hidden;
   margin: 10px 0;

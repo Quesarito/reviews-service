@@ -80,4 +80,26 @@ const buildMediaList = reviewData => {
   return list;
 }
 
-export {prefaceURL, formatDate, setStars, buildMediaList};
+const reorderReviews = (reviewData, reorderBy, keyword) => {
+  let byTop = (a, b) => {
+    return b.helpful - a.helpful;
+  }
+
+  let byRecent = (a, b) => {
+    return new Date(b.posted) - new Date(a.posted);
+  };
+
+  switch (reorderBy) {
+    case 'top':
+      return reviewData.sort(byTop)
+    case 'recent':
+      return reviewData.sort(byRecent);
+    default:
+      console.log(reviewData.filter(review => {
+        return review.body.indexOf(keyword) > -1;
+      }));
+      return;
+  }
+};
+
+export {prefaceURL, formatDate, setStars, buildMediaList, reorderReviews};

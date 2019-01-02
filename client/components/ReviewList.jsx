@@ -15,11 +15,12 @@ const StyledReviewList = styled.div`
   }
 `;
 
-const ReviewList = ({reviews, displayImageInModal}) => {
+const ReviewList = ({reviews, displayImageInModal, changeDisplayedReviews}) => {
   return (
     <StyledReviewList>
       <span>Showing {1}-{reviews.length} of {reviews.length} reviews</span>
-      <select id="showReviewsBy">
+      <select id="showReviewsBy"
+        onChange={changeDisplayedReviews}>
         <option value="top">Top Reviews</option>
         <option value="recent">Most recent</option>
       </select>

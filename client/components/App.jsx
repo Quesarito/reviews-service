@@ -6,7 +6,7 @@ import CustomerImageList from './CustomerImageList.jsx';
 import ImageModal from './ImageModal.jsx';
 import Keywords from './Keywords.jsx';
 import ReviewList from './ReviewList.jsx';
-import {buildMediaList} from '../helpers';
+import {buildMediaList, reorderReviews} from '../helpers';
 
 const StyledApp = styled.div`
   display: flex;
@@ -18,10 +18,12 @@ class App extends React.Component {
     super();
     this.state = {
       reviewData: [],
+      displayedReviews: [],
       starData: {},
       featureData: {},
       mediaList: null,
-      productId: 69,
+      keywords: [],
+      productId: 99,
       modal: {
         display: false,
         mediaIndex: -1,
@@ -49,13 +51,15 @@ class App extends React.Component {
       });
   }
 
-  processReviews({reviewData, starData, featureData}) {
+  processReviews({reviewData, starData, featureData, keywords}) {
     let mediaList = buildMediaList(reviewData);
     this.setState({
       reviewData,
       starData,
       featureData,
-      mediaList
+      mediaList,
+      keywords,
+      displayedReviews: reviewData
     }, err => {
       if (err) {
         console.log('Error in setState');
@@ -95,6 +99,15 @@ class App extends React.Component {
     }
   }
 
+  changeDisplayedReviews(e) {
+    e.preventDefault();
+    let newDisplay = reorderReviews(this.state.reviewData, e.target.value);
+    console.log('CHANGING DISPLAYED REVIEWS', newDisplay);
+    this.setState({
+      displayedReviews: newDisplay
+    });
+  }
+
   render() {
     return (
       <StyledApp scrollable={!this.state.modal.display}>
@@ -122,9 +135,10 @@ class App extends React.Component {
                 mediaList={this.state.mediaList}
                 toggleModal={this.toggleModal()}
                 displayImageInModal={this.displayImageInModal.bind(this)}/>
-              <Keywords />
-              <ReviewList reviews={this.state.reviewData} 
-                displayImageInModal={this.displayImageInModal.bind(this)}/>
+              <Keywords keywords={this.state.keywords}/>
+              <ReviewList reviews={this.state.displayedReviews} 
+                displayImageInModal={this.displayImageInModal.bind(this)}
+                changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
             </>
           }
         </div>

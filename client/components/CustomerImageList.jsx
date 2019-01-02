@@ -14,6 +14,8 @@ const StyledGallery = styled.div`
   margin-bottom: 15px;
 `;
 
+StyledGallery.displayName = 'StyledGallery';
+
 const CustomerImageList = ({mediaList, toggleModal, displayImageInModal}) => {
   let customerImages = [];
   let currentNode = mediaList.head;

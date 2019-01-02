@@ -22,8 +22,7 @@ const Keyword = ({word}) => {
     </StyledKeyword>
   );
 };
-const Keywords = (keywords) => {
-  keywords = ['some test', 'words', 'here'];
+const Keywords = ({keywords}) => {
   return (
     <>
       <h3>Read reviews that mention</h3>
