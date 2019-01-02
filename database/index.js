@@ -19,13 +19,14 @@ const retrieve = (productId, type, callback) => {
     AND reviews.product_id = ?) revs 
   JOIN authors ON authors.id = revs.author_id
   LEFT JOIN media ON media.review_id = revs.id
-  LEFT JOIN features ON features.product_id = revs.product_id;
+  LEFT JOIN features ON features.product_id = revs.product_id
+  ORDER BY revs.helpful DESC;
     `;
   let qSummary = 'SELECT stars FROM reviews WHERE product_id = ?';
   let query = (type === 'summary') ? qSummary : qComplete;
   db.query(query, productId, (err, results) => {
     if (err) { throw err; }
-    // console.log(results);
+    console.log('RESULTS FROM DATABASE RETRIEVAL', results);
     callback(null, results);
   });
 };
