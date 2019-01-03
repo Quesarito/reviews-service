@@ -10,38 +10,8 @@ let NUM_REVIEWS = 200;
 let NUM_FEATURES = 10;
 let NUM_MEDIA = 50;
 
-let getRandomInt = function(start, stop) {
-  return Math.floor((Math.random() * (stop - start)) + start);
-};
-
-let getRandomDouble = function(start = 0, stop = 5) {
-  return ((Math.random() * (stop - start)) + start).toFixed(1);
-};
-
-let getGibberish = () => {
-  return new Promise((resolve, reject) => {
-    let numPara = getRandomInt(1, 4);
-    let minWords = getRandomInt(1, 20);
-    let maxWords = getRandomInt(20, 100);
-    request(`http://www.randomtext.me/api/gibberish/p-${numPara}/${minWords}-${maxWords}`, 
-    (err, response) => {
-      if (err) reject(err);
-      let res = JSON.parse(response.body);
-      resolve(res);
-    });
-  });
-};
-
-let getImages = () => {
-  // return fs.readdirAsync(__dirname + '/images') 
-  //   .then(files => {
-  //     console.log('getimages GOT IMAGES', files);
-  //     return files;
-  //   })
-  //   .catch(err => {
-  //     throw err;
-  //   });
-  return [ 'alex-loup-440761-unsplash.jpg',
+let images = [ 
+  'alex-loup-440761-unsplash.jpg',
   'alexander-andrews-714764-unsplash.jpg',
   'andrew-neel-109195-unsplash.jpg',
   'andrew-neel-109201-unsplash.jpg',
@@ -90,7 +60,29 @@ let getImages = () => {
   'thought-catalog-620865-unsplash.jpg',
   'tom-crew-623491-unsplash.jpg',
   'wu-yi-152057-unsplash.jpg',
-  'yoann-siloine-532514-unsplash.jpg' ];
+  'yoann-siloine-532514-unsplash.jpg'
+];
+
+let getRandomInt = function(start, stop) {
+  return Math.floor((Math.random() * (stop - start)) + start);
+};
+
+let getRandomDouble = function(start = 0, stop = 5) {
+  return ((Math.random() * (stop - start)) + start).toFixed(1);
+};
+
+let getGibberish = () => {
+  return new Promise((resolve, reject) => {
+    let numPara = getRandomInt(1, 4);
+    let minWords = getRandomInt(1, 20);
+    let maxWords = getRandomInt(20, 100);
+    request(`http://www.randomtext.me/api/gibberish/p-${numPara}/${minWords}-${maxWords}`, 
+    (err, response) => {
+      if (err) reject(err);
+      let res = JSON.parse(response.body);
+      resolve(res);
+    });
+  });
 };
 
 let generateProducts = function(num = NUM_PRODUCTS) {
@@ -139,21 +131,14 @@ let generateFeatureRatings = function(num = NUM_FEATURES) {
   });
 };
 
-let generateMedia = function(num = NUM_MEDIA) {
-  return getImages()
-    .then(images => {
-      console.log('GOT IMAGES', images);
-      return Array.from(images, img => {
-        return [
-          'photo', //type
-          img, //file
-          getRandomInt(1, NUM_REVIEWS) //review
-        ];
-      });
-    })
-    .catch(err => {
-      throw err;
-    });
+let generateMedia = function() {
+  return Array.from(images, img => {
+    return [
+      'photo', //type
+      img, //file
+      getRandomInt(1, NUM_REVIEWS) //review
+    ];
+  });
 };
 
 let products = generateProducts();
