@@ -24,7 +24,6 @@ let getGibberish = () => {
     let minWords = getRandomInt(1, 20);
     let maxWords = getRandomInt(20, 100);
     request(`http://www.randomtext.me/api/gibberish/p-${numPara}/${minWords}-${maxWords}`, 
-    // request('http://www.randomtext.me/api/gibberish/p-1/25-80',
     (err, response) => {
       if (err) reject(err);
       let res = JSON.parse(response.body);
@@ -77,21 +76,6 @@ let generateReviews = function(num = NUM_REVIEWS) {
         console.log('ERROR GENERATING REVIEWS', err);
       });
   }));
-//   return new Promise((resolve, reject) => {
-      
-//     Array.from({length: num}, r => {
-//     return [
-//       faker.company.catchPhrase(), //headline
-//       getGibberish(), //body
-//       getRandomInt(0, 6), //stars
-//       faker.date.past().toISOString().split('T')[0], //date
-//       getRandomInt(0, 1500), //helpful
-//       faker.random.boolean(), //verified
-//       getRandomInt(1, NUM_AUTHORS + 1), //author
-//       getRandomInt(1, NUM_PRODUCTS + 1) //product
-//     ];
-//   });
-// })
 };
 
 let generateFeatureRatings = function(num = NUM_FEATURES) {
@@ -120,36 +104,12 @@ let generateMedia = function(num = NUM_MEDIA) {
     .catch(err => {
       throw err;
     });
-  // return Array.from(images, img => {
-  //   return [
-  //     'photo',//type
-  //     img, //file
-  //     getRandomInt(1, NUM_REVIEWS) //review
-  //   ];
-  // });
 };
 
 let products = generateProducts();
 let authors = generateAuthors();
-// let reviews = generateReviews();
 let features = generateFeatureRatings();
-// let media = generateMedia();
 
-// generateReviews()
-//   .then(rvws => {
-//     console.log(rvws);
-//   })
-//   .catch(err => {
-//     throw err;
-//   });
-
-// generateMedia()
-//   .then(meds => {
-//     console.log(meds);
-//   })
-//   .catch(err => {
-//     throw err;
-//   });
 let mysqlReady = (arr) => {
   return arr.map(i => {
     return `(${['default'].concat(i.map(e => JSON.stringify(e))).join(',')})`;
@@ -158,9 +118,7 @@ let mysqlReady = (arr) => {
 
 let qProducts = `INSERT INTO products VALUES ${mysqlReady(products)}`;
 let qAuthors = `INSERT INTO authors VALUES ${mysqlReady(authors)}`;
-// let qReviews = `INSERT INTO reviews VALUES ${mysqlReady(reviews)}`;
 let qFeatures = `INSERT INTO features VALUES ${mysqlReady(features)}`;
-// let qMedia = `INSERT INTO media VALUES ${mysqlReady(media)}`;
 
 let qReviews = generateReviews()
   .then(reviews => {

@@ -109,7 +109,6 @@ class App extends React.Component {
 
     let params = e.target.dataset;
     let reorderType = params.value || e.target.value;
-    // console.log('@@@@@@@@@ CHANGE DISPLAY TARGET', e.target);
 
     if (reorderType === 'reset') {
       filter = '';

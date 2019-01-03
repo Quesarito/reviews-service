@@ -97,7 +97,6 @@ const reorderReviews = (reviewData, sortBy, keyword) => {
       return reviewData.sort(byRecent);
     default:
       return reviewData.filter(review => {
-        // console.log(review.body, review.body.indexOf(keyword));
         return review.body.toLowerCase().indexOf(keyword) > -1;
       });
   }

@@ -32,7 +32,6 @@ const Keyword = ({word, changeDisplayedReviews, className}) => {
   );
 };
 const Keywords = ({keywords, filter, changeDisplayedReviews}) => {
-  console.log('KEYWORD FILTERSSS', filter);
   return (
     <>
       <h3>Read reviews that mention</h3>

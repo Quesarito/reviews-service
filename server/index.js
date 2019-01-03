@@ -13,19 +13,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-// app.get('/reviews/:productId',
-//   retrieveData,
-//   getReviewData, 
-//   getStarData, 
-//   getFeatureData,
-//   (req, res) => {
-//     let {starData, reviewData, featureData} = res;
-//     (req.query.reviewType === 'summary')
-//       ? res.send({starData})
-//       : res.send({starData, reviewData, featureData});
-//   }
-// );
-
 app.use('/reviews/:productId', retrieveData);
 
 app.get('/reviews/:productId', getStarData, (req, res, next) => {
