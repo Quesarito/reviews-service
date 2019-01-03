@@ -23,7 +23,7 @@ class App extends React.Component {
       featureData: {},
       mediaList: null,
       keywords: [],
-      productId: 99,
+      productId: 8,
       filter: '',
       sortBy: 'top',
       modal: {
