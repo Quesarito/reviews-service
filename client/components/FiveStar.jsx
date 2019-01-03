@@ -4,7 +4,7 @@ import stars from '../styles/sprites.png';
 import {setStars} from '../helpers';
 
 const StyledStars = styled.div`
-  background-image: url(${stars});
+  background-image: url('https://s3-us-west-1.amazonaws.com/crackling-iceberg-lettuce-120/assets/sprites.png');
   background-repeat: no-repeat;
   background-position: -${({starRating}) => starRating}px -398px;
   background-size: 400px;

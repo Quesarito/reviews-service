@@ -43,6 +43,7 @@
     "webpack-cli": "^3.1.2"
   },
   "jest": {
+    "automock": false,
     "setupTestFrameworkScriptFile": "./test/setupTests.js",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"

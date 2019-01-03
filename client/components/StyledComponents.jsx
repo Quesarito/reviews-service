@@ -7,7 +7,7 @@ import sprites from '../styles/sprites.png';
 const GlobalStyles = createGlobalStyle`
   @font-face {
     font-family: 'Amazon Ember';
-    src: url('${AmazonEmber}') format('truetype');
+    src: url('https://s3-us-west-1.amazonaws.com/crackling-iceberg-lettuce-120/assets/fonts/AmazonEmber_Rg.ttf') format('truetype');
     font-weight: normal;
   }
   @font-face {
@@ -74,8 +74,8 @@ const Sprite = styled.div`
   align-items: center;
 
   div {
-    background-image: url(${sprites});
-    background-size: 400px;
+    background-image: url('https://s3-us-west-1.amazonaws.com/crackling-iceberg-lettuce-120/assets/sprites.png');
+    background-size: 401px;
     background-repeat: no-repeat;
   }
 `;
