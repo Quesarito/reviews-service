@@ -1,27 +1,58 @@
 const db = require('../database');
 
-const getReviewData = (req, res, next) => {
+const retrieveData = (req, res, next) => {
   db.retrieve(req.params.productId, req.query.reviewType, (err, results) => {
+    console.log('PATHHHHHHHHHHHHHH', req.baseUrl);
     if (err) {
       res.status(500).send(err);
     }
-    let mediaURLs = {};
-    let filtered = results.filter(row => {
-      if (!mediaURLs.hasOwnProperty(row.id)) {
-        //Put URL into property array 
-        //So any future URLs for the same review can be stored there too
-        row.media = (row.media !== null) ? [row.media] : [];
-        mediaURLs[row.id] = row.media; //Set reference to the first's media property array
-        return true; //Keep the current review row
-      }
-      if (row.media !== null) {
-        mediaURLs[row.id].push(row.media); //Add duplicate's media URL to array
-      }
-      return false; //Discard review duplicate
-    });
-    res.reviewData = filtered;
+    res.reviewData = results;
     next();
   });
+};
+
+const getReviewData = (req, res, next) => {
+  let mediaURLs = {};
+  let filtered = res.reviewData.filter(row => {
+    if (!mediaURLs.hasOwnProperty(row.id)) {
+      //Put URL into property array 
+      //So any future URLs for the same review can be stored there too
+      row.media = (row.media !== null) ? [row.media] : [];
+      mediaURLs[row.id] = row.media; //Set reference to the first's media property array
+      return true; //Keep the current review row
+    }
+    if (row.media !== null) {
+      mediaURLs[row.id].push(row.media); //Add duplicate's media URL to array
+    }
+    return false; //Discard review duplicate
+  });
+  console.log('RRRRREVIW DATA', filtered);
+  res.reviewData = filtered;
+  res.keywords = getKeywords(res.reviewData);
+  next();
+
+  // db.retrieve(req.params.productId, req.query.reviewType, (err, results) => {
+  //   if (err) {
+  //     res.status(500).send(err);
+  //   }
+  //   let mediaURLs = {};
+  //   let filtered = results.filter(row => {
+  //     if (!mediaURLs.hasOwnProperty(row.id)) {
+  //       //Put URL into property array 
+  //       //So any future URLs for the same review can be stored there too
+  //       row.media = (row.media !== null) ? [row.media] : [];
+  //       mediaURLs[row.id] = row.media; //Set reference to the first's media property array
+  //       return true; //Keep the current review row
+  //     }
+  //     if (row.media !== null) {
+  //       mediaURLs[row.id].push(row.media); //Add duplicate's media URL to array
+  //     }
+  //     return false; //Discard review duplicate
+  //   });
+  //   console.log('RRRRREVIW DATA', filtered);
+  //   res.reviewData = filtered;
+  //   next();
+  // });
 };
 
 const getStarData = (req, res, next) => {
@@ -36,7 +67,7 @@ const getStarData = (req, res, next) => {
   });
   starData.average = (sum / starData.total).toFixed(1);
   res.starData = starData;
-  console.log(starData);
+  console.log('STARRRRR DATA', starData);
   next();
 };
 
@@ -47,9 +78,37 @@ const getFeatureData = (req, res, next) => {
       featureData[row.feature] = row.featureRating;
     }
   });
-  console.log(featureData);
+  console.log('FFFFEATURE DATA', featureData);
   res.featureData = featureData;
   next();
 };
 
-module.exports = {getReviewData, getStarData, getFeatureData};
+//Get the words most commonly mentioned in the reviews
+const stopwords = ["i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves", "what", "which", "who", "whom", "this", "that", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "should", "now"];
+
+let getTexts = (reviewData) => {
+  return reviewData.map(rvw => rvw.body);
+};
+
+const getKeywords = (reviewData) => {
+  let texts = getTexts(reviewData);
+  let wordCounts = {};
+  texts.forEach(text => {
+    let textArray = text.split(/\b\s+/);
+    for (let i = 0; i < textArray.length; i++) {
+      let word = textArray[i].toLowerCase();
+      wordCounts[word] = (wordCounts[word] || 0) + 1;
+    }
+  });
+
+  let keywords = [];
+  for (let word in wordCounts) {
+    if (wordCounts[word] > 3 && stopwords.indexOf(word) < 0) {
+      keywords.push(word);
+    }
+  }
+  return keywords;
+};
+
+
+module.exports = {retrieveData, getReviewData, getStarData, getFeatureData};

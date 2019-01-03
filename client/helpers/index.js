@@ -1,3 +1,7 @@
+const prefaceURL = (path) => {
+  return `https://s3-us-west-1.amazonaws.com/crackling-iceberg-lettuce-120/images/${path}`;
+};
+
 const monthByNumber = [
   'January',
   'February',
@@ -22,18 +26,16 @@ const formatDate = date => {
 
 //Determine image position to display appropriate number of stars
 //Half-star range: 0.3 - 0.8
-//Each star is 30 x 30, 2px apart
-//Half-star side starts 341px from the left
-const setStars = (rating) => { 
+//All calculations are based on the spritesheet being half-sized
+//LARGE STARS: 19 x 19, 1px apart
+//  Rows start at 5px and 205px
+//SMALL STARS: 16 x 16, 1px apart
+// Rows start at 5px and 175px
+const setStars = (rating, starSize = 'small') => { 
+  let sizes = (starSize === 'large') ? [19, 205] : [16, 175];
   let modulo = rating % 1;
-  let left = 0;
-
-  if (modulo > 0.7) {
-    left = (5 - Math.ceil(rating)) * 32;
-  } else {
-    left = (5 - Math.floor(rating)) * 32;
-    left += (modulo > 0.2) ? 309 : 0;
-  }
+  let left = (5 - Math.ceil(rating)) * sizes[0];
+  left += (modulo > 0.2) ? sizes[1] : 5;
   return left;
 };
 
@@ -78,4 +80,26 @@ const buildMediaList = reviewData => {
   return list;
 }
 
-export {formatDate, setStars, buildMediaList};
+const reorderReviews = (reviewData, sortBy, keyword) => {
+  let byTop = (a, b) => {
+    return b.helpful - a.helpful;
+  }
+
+  let byRecent = (a, b) => {
+    return new Date(b.posted) - new Date(a.posted);
+  };
+
+  switch (sortBy) {
+    case 'top':
+      return reviewData.sort(byTop)
+    case 'recent':
+      console.log('RECENT REVIEW DATA', reviewData);
+      return reviewData.sort(byRecent);
+    default:
+      return reviewData.filter(review => {
+        return review.body.toLowerCase().indexOf(keyword) > -1;
+      });
+  }
+};
+
+export {prefaceURL, formatDate, setStars, buildMediaList, reorderReviews};

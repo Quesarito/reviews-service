@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {FiveStar, FiveStarSmall} from './FiveStar.jsx';
+import {FiveStar} from './FiveStar.jsx';
 import {StyledButton} from './StyledComponents.jsx';
 import FeatureRating from './FeatureRating.jsx';
 
@@ -57,6 +57,13 @@ const StarBar = styled.div`
     }
 
   }
+
+  :hover {
+    span {
+      color: #c45500;
+      text-decoration: underline;
+    }
+  }
 `;
 
 const FeatureTable = styled(Section)`
@@ -70,7 +77,7 @@ let StarRatings = ({starData, featureData}) => {
         {(starData.total !== 1) ? ' reviews' : ' review'}
       </h2> 
       <div>
-        <FiveStarSmall rating={starData.average} />
+        <FiveStar rating={starData.average} />
         <span>{starData.average} out of 5 stars</span>
       </div>
       
@@ -83,7 +90,7 @@ let StarRatings = ({starData, featureData}) => {
               : (
                 <StarBar as="a" href="#"
                   key={stars} percent={percent}>
-                  {stars} star
+                  <span>{stars} star</span>
                   <div className="wrapper" >
                     <div className="fill"></div>
                   </div>
@@ -113,7 +120,7 @@ let StarRatings = ({starData, featureData}) => {
 
       <Section>
         <h3>Review this product</h3>
-        Share your thoughts with other customers
+        <p>Share your thoughts with other customers</p>
         <StyledButton>Write a customer review</StyledButton>
       </Section>
     </StyledStarRatings>

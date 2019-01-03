@@ -6,10 +6,11 @@ import CustomerImageList from './CustomerImageList.jsx';
 import ImageModal from './ImageModal.jsx';
 import Keywords from './Keywords.jsx';
 import ReviewList from './ReviewList.jsx';
-import {buildMediaList} from '../helpers';
+import {buildMediaList, reorderReviews} from '../helpers';
 
 const StyledApp = styled.div`
   display: flex;
+  overflow: ${props => (props.scrollable) ? 'scroll' : 'hidden'};
 `;
 
 class App extends React.Component {
@@ -17,10 +18,14 @@ class App extends React.Component {
     super();
     this.state = {
       reviewData: [],
+      displayedReviews: [],
       starData: {},
       featureData: {},
       mediaList: null,
-      productId: 55,
+      keywords: [],
+      productId: 99,
+      filter: '',
+      sortBy: 'top',
       modal: {
         display: false,
         mediaIndex: -1,
@@ -48,13 +53,15 @@ class App extends React.Component {
       });
   }
 
-  processReviews({reviewData, starData, featureData}) {
+  processReviews({reviewData, starData, featureData, keywords}) {
     let mediaList = buildMediaList(reviewData);
     this.setState({
       reviewData,
       starData,
       featureData,
-      mediaList
+      mediaList,
+      keywords,
+      displayedReviews: reviewData
     }, err => {
       if (err) {
         console.log('Error in setState');
@@ -65,7 +72,8 @@ class App extends React.Component {
 
   displayImageInModal(e) {
     e.preventDefault();
-    let data = e.target.dataset;
+    let data = e.currentTarget.dataset;
+    document.documentElement.style.overflow = 'hidden';
     this.setState({
         modal: {
           display: true,
@@ -88,13 +96,42 @@ class App extends React.Component {
         }
       }, err => {
         if (err) throw err;
+        document.documentElement.style.overflow = (this.state.modal.display) ? 'hidden' : 'scroll';
       });
     }
   }
 
+  changeDisplayedReviews(e) {
+    e.preventDefault();
+    let newDisplay;
+    let filter = this.state.filter;
+    let sortBy = this.state.sortBy;
+
+    let params = e.target.dataset;
+    let reorderType = params.value || e.target.value;
+
+    if (reorderType === 'reset') {
+      filter = '';
+      console.log('SORT BY FOR RESET', sortBy);
+      newDisplay = reorderReviews(this.state.reviewData, sortBy);
+    } else if (reorderType === 'keyword') {
+      console.log('TARGET DATAFILTER:', params);
+      filter = params.filter;
+      newDisplay = reorderReviews(this.state.displayedReviews, reorderType, params.filter);
+    } else {
+      sortBy = reorderType;
+      newDisplay = reorderReviews(this.state.displayedReviews, reorderType);
+    }
+    this.setState({
+      filter,
+      sortBy,
+      displayedReviews: newDisplay
+    });
+  }
+
   render() {
     return (
-      <StyledApp>
+      <StyledApp scrollable={!this.state.modal.display}>
         <GlobalStyles />
         {
           (!this.state.modal.display) ? '' :
@@ -119,9 +156,13 @@ class App extends React.Component {
                 mediaList={this.state.mediaList}
                 toggleModal={this.toggleModal()}
                 displayImageInModal={this.displayImageInModal.bind(this)}/>
-              <Keywords />
-              <ReviewList reviews={this.state.reviewData} 
-                displayImageInModal={this.displayImageInModal.bind(this)}/>
+              <Keywords keywords={this.state.keywords}
+                filter={this.state.filter}
+                changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
+              <ReviewList reviews={this.state.displayedReviews} 
+                filter={this.state.filter}
+                displayImageInModal={this.displayImageInModal.bind(this)}
+                changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
             </>
           }
         </div>

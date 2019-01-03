@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
 import AmazonEmber from '../styles/fonts/AmazonEmber_Rg.ttf';
 import AmazonEmberBold from '../styles/fonts/AmazonEmber_Bd.ttf';
+import sprites from '../styles/sprites.png';
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -16,9 +17,8 @@ const GlobalStyles = createGlobalStyle`
   }
   body {
     font-family: 'Amazon Ember', Arial, sans-serif;
-
   }
-  
+
   .review-wrapper {
     margin-left: 70px;
   }
@@ -43,6 +43,16 @@ const GlobalStyles = createGlobalStyle`
     display: flex;
     align-items: center;
   }
+
+  .selected-glow {
+    box-shadow: 0 0 10px 1px rgb(230, 115, 34, 0.7);
+    border: solid 1px rgb(230, 115, 34);
+  }
+
+  .selected-line {
+    border: solid 2px orange;
+    border-radius: 3px;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -56,4 +66,29 @@ const StyledButton = styled.button`
     padding: 5px 0;
     box-shadow: inset 0 0 0 0px rgb(0, 0, 0, 0.5);
 `;
-export {GlobalStyles, StyledButton};
+
+const Sprite = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div {
+    background-image: url(${sprites});
+    background-size: 400px;
+    background-repeat: no-repeat;
+  }
+`;
+
+const StyledLink = styled.a`
+  color: #0066c0;
+  font-size: 13px;
+  text-decoration: none;
+
+  :hover {
+    color: #c45500;
+    text-decoration: underline;
+  }
+`;
+
+export {GlobalStyles, StyledButton, Sprite, StyledLink};
