@@ -24,6 +24,8 @@ class App extends React.Component {
       mediaList: null,
       keywords: [],
       productId: 99,
+      filter: '',
+      sortBy: 'top',
       modal: {
         display: false,
         mediaIndex: -1,
@@ -101,9 +103,29 @@ class App extends React.Component {
 
   changeDisplayedReviews(e) {
     e.preventDefault();
-    let newDisplay = reorderReviews(this.state.reviewData, e.target.value);
-    console.log('CHANGING DISPLAYED REVIEWS', newDisplay);
+    let newDisplay;
+    let filter = this.state.filter;
+    let sortBy = this.state.sortBy;
+
+    let params = e.target.dataset;
+    let reorderType = params.value || e.target.value;
+    // console.log('@@@@@@@@@ CHANGE DISPLAY TARGET', e.target);
+
+    if (reorderType === 'reset') {
+      filter = '';
+      console.log('SORT BY FOR RESET', sortBy);
+      newDisplay = reorderReviews(this.state.reviewData, sortBy);
+    } else if (reorderType === 'keyword') {
+      console.log('TARGET DATAFILTER:', params);
+      filter = params.filter;
+      newDisplay = reorderReviews(this.state.displayedReviews, reorderType, params.filter);
+    } else {
+      sortBy = reorderType;
+      newDisplay = reorderReviews(this.state.displayedReviews, reorderType);
+    }
     this.setState({
+      filter,
+      sortBy,
       displayedReviews: newDisplay
     });
   }
@@ -135,8 +157,11 @@ class App extends React.Component {
                 mediaList={this.state.mediaList}
                 toggleModal={this.toggleModal()}
                 displayImageInModal={this.displayImageInModal.bind(this)}/>
-              <Keywords keywords={this.state.keywords}/>
+              <Keywords keywords={this.state.keywords}
+                filter={this.state.filter}
+                changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
               <ReviewList reviews={this.state.displayedReviews} 
+                filter={this.state.filter}
                 displayImageInModal={this.displayImageInModal.bind(this)}
                 changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
             </>

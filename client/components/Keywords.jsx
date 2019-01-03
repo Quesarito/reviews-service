@@ -13,22 +13,39 @@ const StyledSection = styled.div`
   flex-wrap: wrap;
   font-size: 13px;
   margin-bottom: 20px;
+
+  .selected {
+    background-color:#00464F;
+    color: #fff;
+  }
 `;
 
-const Keyword = ({word}) => {
+const Keyword = ({word, changeDisplayedReviews, className}) => {
   return (
-    <StyledKeyword>
+    <StyledKeyword
+      className={className}
+      data-value="keyword"
+      data-filter={word}
+      onClick={changeDisplayedReviews}>
       {word}
     </StyledKeyword>
   );
 };
-const Keywords = ({keywords}) => {
+const Keywords = ({keywords, filter, changeDisplayedReviews}) => {
+  console.log('KEYWORD FILTERSSS', filter);
   return (
     <>
       <h3>Read reviews that mention</h3>
       <StyledSection>
         {
-          keywords.map(kw => <Keyword word={kw}/>)
+          keywords.map(kw => {
+            let className = (kw === filter) ? 'selected' : '';
+            return <Keyword as="a" href="#"
+              word={kw}
+              className={className}
+              changeDisplayedReviews={changeDisplayedReviews}
+            />
+          })
         }
       </StyledSection>
     </>

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const port = 3000;
+const port = 3003;
 const {retrieveData, getStarData, getReviewData, getFeatureData} = require('./getReviews.js');
 
 app.use(express.static('public'));
