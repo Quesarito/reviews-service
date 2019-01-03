@@ -33,14 +33,64 @@ let getGibberish = () => {
 };
 
 let getImages = () => {
-  return fs.readdirAsync(__dirname + '/images') 
-    .then(files => {
-      console.log('getimages GOT IMAGES', files);
-      return files;
-    })
-    .catch(err => {
-      throw err;
-    });
+  // return fs.readdirAsync(__dirname + '/images') 
+  //   .then(files => {
+  //     console.log('getimages GOT IMAGES', files);
+  //     return files;
+  //   })
+  //   .catch(err => {
+  //     throw err;
+  //   });
+  return [ 'alex-loup-440761-unsplash.jpg',
+  'alexander-andrews-714764-unsplash.jpg',
+  'andrew-neel-109195-unsplash.jpg',
+  'andrew-neel-109201-unsplash.jpg',
+  'annie-spratt-607991-unsplash.jpg',
+  'anton-belashov-164977-unsplash.jpg',
+  'art-lasovsky-559569-unsplash.jpg',
+  'beatriz-perez-moya-111685-unsplash.jpg',
+  'bench-accounting-49909-unsplash.jpg',
+  'clem-onojeghuo-143743-unsplash.jpg',
+  'connor-betts-187536-unsplash.jpg',
+  'daniel-korpai-1116932-unsplash.jpg',
+  'fabian-blank-78637-unsplash.jpg',
+  'florian-klauer-47938-unsplash.jpg',
+  'gaelle-marcel-200741-unsplash.jpg',
+  'hello-i-m-nik-588487-unsplash.jpg',
+  'iabzd-618636-unsplash.jpg',
+  'imani-clovis-102910-unsplash.jpg',
+  'jessica-lewis-623890-unsplash.jpg',
+  'joanna-kosinska-288950-unsplash.jpg',
+  'joanna-kosinska-514865-unsplash.jpg',
+  'kendal-james-759263-unsplash.jpg',
+  'kevin-hou-40208-unsplash.jpg',
+  'luke-chesser-50-unsplash.jpg',
+  'marisa-harris-596682-unsplash.jpg',
+  'mark-tegethoff-592650-unsplash.jpg',
+  'nathan-dumlao-623128-unsplash.jpg',
+  'oliur-115920-unsplash.jpg',
+  'pineapple-supply-co-224098-unsplash.jpg',
+  'plush-design-studio-555452-unsplash.jpg',
+  'plush-design-studio-571660-unsplash.jpg',
+  'priscilla-du-preez-228220-unsplash (1).jpg',
+  'priscilla-du-preez-228220-unsplash.jpg',
+  'rawpixel-600792-unsplash.jpg',
+  'rawpixel-603680-unsplash.jpg',
+  'rawpixel-617383-unsplash.jpg',
+  'rawpixel-623442-unsplash.jpg',
+  'recito-prasida-70130-unsplash.jpg',
+  'roland-denes-619320-unsplash.jpg',
+  'ron-mcclenny-603462-unsplash.jpg',
+  'sarah-dorweiler-105892-unsplash.jpg',
+  'sarah-dorweiler-105894-unsplash.jpg',
+  'sarah-dorweiler-127187-unsplash.jpg',
+  'sarah-dorweiler-128577-unsplash.jpg',
+  'taya-iv-383975-unsplash.jpg',
+  'thought-catalog-569791-unsplash.jpg',
+  'thought-catalog-620865-unsplash.jpg',
+  'tom-crew-623491-unsplash.jpg',
+  'wu-yi-152057-unsplash.jpg',
+  'yoann-siloine-532514-unsplash.jpg' ];
 };
 
 let generateProducts = function(num = NUM_PRODUCTS) {
