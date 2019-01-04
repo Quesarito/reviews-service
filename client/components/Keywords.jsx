@@ -1,52 +1,33 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const StyledKeyword = styled.div`
-  background-color: #D7E8EA;
-  border-bottom: solid 1px #969696;
-  padding: 5px;
-  margin-right: 10px;
-`;
-
-const StyledSection = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 13px;
-  margin-bottom: 20px;
-
-  .selected {
-    background-color:#00464F;
-    color: #fff;
-  }
-`;
+import styles from './stylesKeywords.css';
 
 const Keyword = ({word, changeDisplayedReviews, className}) => {
   return (
-    <StyledKeyword
-      className={className}
+    <div className={`${styles.keyword} ${className}`}
       data-value="keyword"
       data-filter={word}
       onClick={changeDisplayedReviews}>
       {word}
-    </StyledKeyword>
+    </div>
   );
 };
+
 const Keywords = ({keywords, filter, changeDisplayedReviews}) => {
   return (
     <>
       <h3>Read reviews that mention</h3>
-      <StyledSection>
+      <div className={styles.keywordList}>
         {
           keywords.map(kw => {
-            let className = (kw === filter) ? 'selected' : '';
-            return <Keyword as="a" href="#"
+            let className = (kw === filter) ? styles.selected : '';
+            return <Keyword
               word={kw}
               className={className}
               changeDisplayedReviews={changeDisplayedReviews}
             />
           })
         }
-      </StyledSection>
+      </div>
     </>
   );
 };

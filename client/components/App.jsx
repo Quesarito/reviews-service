@@ -149,10 +149,10 @@ class App extends React.Component {
                 mediaList={this.state.mediaList}
                 toggleModal={this.toggleModal()}
                 displayImageInModal={this.displayImageInModal.bind(this)}/>
-              {/* <Keywords keywords={this.state.keywords}
+              <Keywords keywords={this.state.keywords}
                 filter={this.state.filter}
                 changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
-              <ReviewList reviews={this.state.displayedReviews} 
+              {/*<ReviewList reviews={this.state.displayedReviews} 
                 filter={this.state.filter}
                 displayImageInModal={this.displayImageInModal.bind(this)}
                 changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/> */}
