@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import {prefaceURL} from '../helpers';
 import styles from './stylesCustomerImages.css';
 
-const StyledImage = styled.img`
-  content: url('${props => props.src}');
-`;
 const StyledThumbnail = styled.div`
   background: url('${props => props.src}') center/cover; 
   height: 100px;

@@ -152,10 +152,10 @@ class App extends React.Component {
               <Keywords keywords={this.state.keywords}
                 filter={this.state.filter}
                 changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
-              {/*<ReviewList reviews={this.state.displayedReviews} 
+              <ReviewList reviews={this.state.displayedReviews} 
                 filter={this.state.filter}
                 displayImageInModal={this.displayImageInModal.bind(this)}
-                changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/> */}
+                changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
             </>
           }
         </div>

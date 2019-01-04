@@ -1,0 +1,95 @@
+.reviewList {
+  width: 600px;
+}
+
+.showing {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.reviewList select {
+  display: block;
+  margin: 10px 0;
+}
+
+.review {
+  color: black;
+  font-size: 13px;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  border-radius: 50%;
+  height:40px;
+  width:40px;
+  margin-right: 10px;
+}
+
+.reviewInfo {
+  margin: 10px 0;
+}
+.reviewInfo div {
+  margin: 0 5px 0 0;
+}
+.headline {
+  font-weight: 700;
+  display: flex;
+}
+.date {
+  color: #555;
+}
+.verified {
+  color: #c44500;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.body {
+  margin: 10px 0;
+}
+.body p {
+  margin-top: 0;
+}
+
+.images {
+  display: flex;
+}
+.images div {
+  height: 88px;
+  width: 88px;
+  margin-right: 1px;
+}
+
+.footer {
+  margin-top: 5px;
+}
+.footer div {
+  margin: 10px 0;
+}
+
+.helped {
+  color: #767676;
+} 
+
+.helpful {
+  composes: styledButton from './stylesComponents.css';
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-right: 10px;
+}
+
+.styledLink {
+  composes: styledLink from './stylesComponents.css';
+  color: black;
+}
+
+.clearFilter {
+  composes: styledLink from './stylesComponents.css';
+  font-weight: regular;
+}
