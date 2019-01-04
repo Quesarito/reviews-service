@@ -1,0 +1,52 @@
+@font-face {
+font-family: 'Amazon Ember';
+src: url('https://s3-us-west-1.amazonaws.com/crackling-iceberg-lettuce-120/assets/fonts/AmazonEmber_Rg.ttf') format('truetype');
+font-weight: normal;
+}
+@font-face {
+font-family: 'Amazon Ember';
+src: url('https://s3-us-west-1.amazonaws.com/crackling-iceberg-lettuce-120/assets/fonts/AmazonEmber_Bd.ttf') format('truetype');
+font-weight: bold;
+}
+.styledApp {
+font-family: 'Amazon Ember', Arial, sans-serif;
+}
+
+.noScroll {
+    overflow: hidden;
+}
+
+.review-wrapper {
+margin-left: 70px;
+}
+
+.gray {
+color: #555;
+}
+
+.lightgray {
+color: #767676;
+}
+
+.orange {
+color: #c45500;
+}
+
+.blue {
+color: #0066c0;
+}
+
+.flex-left-center {
+display: flex;
+align-items: center;
+}
+
+.selected-glow {
+box-shadow: 0 0 10px 1px rgb(230, 115, 34, 0.7);
+border: solid 1px rgb(230, 115, 34);
+}
+
+.selected-line {
+border: solid 2px orange;
+border-radius: 3px;
+}

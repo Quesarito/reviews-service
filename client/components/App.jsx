@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import {GlobalStyles} from './StyledComponents.jsx';
 import StarRatings from './StarRatings.jsx';
 import CustomerImageList from './CustomerImageList.jsx';
@@ -7,11 +7,12 @@ import ImageModal from './ImageModal.jsx';
 import Keywords from './Keywords.jsx';
 import ReviewList from './ReviewList.jsx';
 import {buildMediaList, reorderReviews} from '../helpers';
+import styles from './stylesApp.css';
 
-const StyledApp = styled.div`
-  display: flex;
-  overflow: ${props => (props.scrollable) ? 'scroll' : 'hidden'};
-`;
+// const StyledApp = styled.div`
+//   display: flex;
+//   overflow: ${props => (props.scrollable) ? 'scroll' : 'hidden'};
+// `;
 
 class App extends React.Component {
   constructor() {
@@ -130,46 +131,58 @@ class App extends React.Component {
   }
 
   render() {
+    let scrollable = (!this.state.modal.display) ? '' : styles.noScroll;
     return (
-      <StyledApp scrollable={!this.state.modal.display}>
-        <GlobalStyles />
+      <div className={`${styles.styledApp} ${scrollable}`}>
+        <b>HELLO </b>Hello I am css moduled
         {
-          (!this.state.modal.display) ? '' :
-            <ImageModal 
-              mediaIndex={this.state.modal.mediaIndex}
-              productReview={this.state.reviewData[this.state.modal.reviewIndex]}
-              mediaList={this.state.mediaList}
-              toggleModal={this.toggleModal()}
-              displayImageInModal={this.displayImageInModal.bind(this)}/>
+        (!this.state.starData.hasOwnProperty('total')) ? '' : 
+          <StarRatings 
+            starData={this.state.starData} 
+            featureData={this.state.featureData}/>
         }
-        {
-          (!this.state.starData.hasOwnProperty('total')) ? '' : 
-            <StarRatings 
-              starData={this.state.starData} 
-              featureData={this.state.featureData}/>
-        }
-        <div className="review-wrapper">
-          {
-            (!this.state.reviewData.length > 0) ? '' : 
-            <>
-              <CustomerImageList 
-                mediaList={this.state.mediaList}
-                toggleModal={this.toggleModal()}
-                displayImageInModal={this.displayImageInModal.bind(this)}/>
-              <Keywords keywords={this.state.keywords}
-                filter={this.state.filter}
-                changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
-              <ReviewList reviews={this.state.displayedReviews} 
-                filter={this.state.filter}
-                displayImageInModal={this.displayImageInModal.bind(this)}
-                changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
-            </>
-          }
-        </div>
-      </StyledApp>
-    );
+      </div>
+    )
+    // return (
+    //   <StyledApp scrollable={!this.state.modal.display}>
+    //     <GlobalStyles />
+    //     {
+    //       (!this.state.modal.display) ? '' :
+    //         <ImageModal 
+    //           mediaIndex={this.state.modal.mediaIndex}
+    //           productReview={this.state.reviewData[this.state.modal.reviewIndex]}
+    //           mediaList={this.state.mediaList}
+    //           toggleModal={this.toggleModal()}
+    //           displayImageInModal={this.displayImageInModal.bind(this)}/>
+    //     }
+    //     {
+    //       (!this.state.starData.hasOwnProperty('total')) ? '' : 
+    //         <StarRatings 
+    //           starData={this.state.starData} 
+    //           featureData={this.state.featureData}/>
+    //     }
+    //     <div className="review-wrapper">
+    //       {
+    //         (!this.state.reviewData.length > 0) ? '' : 
+    //         <>
+    //           <CustomerImageList 
+    //             mediaList={this.state.mediaList}
+    //             toggleModal={this.toggleModal()}
+    //             displayImageInModal={this.displayImageInModal.bind(this)}/>
+    //           <Keywords keywords={this.state.keywords}
+    //             filter={this.state.filter}
+    //             changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
+    //           <ReviewList reviews={this.state.displayedReviews} 
+    //             filter={this.state.filter}
+    //             displayImageInModal={this.displayImageInModal.bind(this)}
+    //             changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
+    //         </>
+    //       }
+    //     </div>
+    //   </StyledApp>
+    // );
   }  
 }
 
-StyledApp.displayName = 'StyledApp';
+// StyledApp.displayName = 'StyledApp';
 export default App;
