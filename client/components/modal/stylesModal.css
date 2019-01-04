@@ -1,3 +1,17 @@
+/* MODAL GALLERY STYLES */
+.gallery {
+  display: flex;
+  margin: 15px;
+  overflow: scroll;
+}
+
+.gallery div {
+  height: 170px;
+  width: 170px;
+  margin: 8px;
+}
+
+/* MODAL REVIEW STYLES */
 .toGalleryWrapper {
   composes: iconWrapper from '../styled_components/stylesComponents.css';
   color: black;
@@ -44,11 +58,21 @@
   margin-right: 15px;
 }
 
+.reviewGallery {
+  display: flex;
+}
+.reviewGallery div {
+  height: 48px;
+  width: 48px;
+  margin-right: 5px;
+}
+
 .arrowWrapper {
   display: flex;
+  align-items: center;
   opacity: 0;
 }
-.arrowWrapper:hover {
+.largeImage:hover .arrowWrapper {
   opacity: 0.7;
 }
 .arrow {
@@ -58,4 +82,20 @@
   height: 62px;
   width: 40px;    
   margin: 0 10px;
+}
+
+.toPrevImage {
+  flex: 0 0 25%;
+  justify-content: flex-start;
+}
+.toPrevImage div {
+  background-position-x: -6px;
+}
+
+.toNextImage {
+  flex: 0 0 75%;
+  justify-content: flex-end;
+}
+.toNextImage div {
+  background-position-x: -80px;
 }

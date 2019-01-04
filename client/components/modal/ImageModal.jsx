@@ -4,6 +4,7 @@ import {CustomerThumbnail} from '../customer_images/CustomerImage.jsx';
 import {Sprite} from '../styled_components/StyledComponents.jsx';
 import styles from './stylesModal.css';
 import ModalReview from './ModalReview.jsx';
+import ModalGallery from './ModalGallery.jsx';
 
 const ModalWrapper = styled.div`
   display: flex;
@@ -175,24 +176,24 @@ const StyledDim = styled.div`
   position: fixed;
 `;
 
-const ModalGallery = ({mediaList, displayImageInModal}) => {
-  let customerImages = [];
-  let currentNode = mediaList.head;
-  while (currentNode !== null) {
-    customerImages.push(
-      <GalleryThumbnail
-        mediaNode={currentNode}
-        displayImageInModal={displayImageInModal}
-      />
-    );
-    currentNode = currentNode.next;
-  }
-  return (
-    <StyledGallery>
-      {customerImages}
-    </StyledGallery>
-  );
-};
+// const ModalGallery = ({mediaList, displayImageInModal}) => {
+//   let customerImages = [];
+//   let currentNode = mediaList.head;
+//   while (currentNode !== null) {
+//     customerImages.push(
+//       <GalleryThumbnail
+//         mediaNode={currentNode}
+//         displayImageInModal={displayImageInModal}
+//       />
+//     );
+//     currentNode = currentNode.next;
+//   }
+//   return (
+//     <StyledGallery>
+//       {customerImages}
+//     </StyledGallery>
+//   );
+// };
 
 
 

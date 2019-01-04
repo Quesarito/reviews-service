@@ -2,14 +2,33 @@ import React from 'react';
 import styles from './stylesModal.css';
 import {formatDate, prefaceURL} from '../../helpers';
 import {FiveStarsSmall} from '../styled_components/StyledComponents.jsx';
-const LargeImage = ({src}) => {
+import {CustomerImage} from '../customer_images/CustomerImage.jsx';
+
+const LargeImage = ({src, currentNode, displayImageInModal}) => {
   let image = {
     backgroundImage: `url('${src}')`
   };
-  console.log('HEYYYYYYYYYYYY', image);
   return (
     <div className={styles.largeImage}
       style={image}>
+      {
+        (currentNode.prev === null) ? <div className={styles.toPrevImage}/>
+        : <div className={`${styles.toPrevImage} ${styles.arrowWrapper}`}
+          data-review-index={currentNode.prev.reviewIndex}
+          data-media-index={currentNode.prev.index}
+          onClick={displayImageInModal}>
+          <div className={styles.arrow}></div>
+        </div>
+      }
+      {
+        (currentNode.next === null) ? <div className={styles.toNextImage}/>
+        : <div className={`${styles.toNextImage} ${styles.arrowWrapper}`}
+          data-review-index={currentNode.next.reviewIndex}
+          data-media-index={currentNode.next.index}
+          onClick={displayImageInModal}>
+          <div className={styles.arrow}></div>
+        </div>
+      }
     </div>
   );
 };
@@ -27,28 +46,9 @@ const ModalReview = ({productReview, mediaIndex, displayImageInModal}) => {
         </div>
   
         <div className={styles.reviewWrapper}>
-          <LargeImage src={prefaceURL(currentNode.url)}>
-            {/* {
-              (currentNode.prev === null) ? <ToPrevImage/>
-              : <ToPrevImage
-                as="a" href="#"
-                data-review-index={currentNode.prev.reviewIndex}
-                data-media-index={currentNode.prev.index}
-                onClick={displayImageInModal}>
-                <div></div>
-              </ToPrevImage>
-            }
-            {
-              (currentNode.next === null) ? <ToNextImage/>
-              : <ToNextImage
-                as="a" href="#"
-                data-review-index={currentNode.next.reviewIndex}
-                data-media-index={currentNode.next.index}
-                onClick={displayImageInModal}>
-                <div></div>
-              </ToNextImage>
-            } */}
-          </LargeImage>
+          <LargeImage src={prefaceURL(currentNode.url)} 
+            currentNode={currentNode} 
+            displayImageInModal={displayImageInModal}/>
   
           <div className={styles.review}>
             <div className="product-name">{productReview.productName}</div>
@@ -60,19 +60,21 @@ const ModalReview = ({productReview, mediaIndex, displayImageInModal}) => {
             <div dangerouslySetInnerHTML={{__html: productReview.body}}></div>
   
             <div>
-              <div className="review-images gray">Images in this review</div>
-              {
-                // productReview.media.map(mediaNode => {
-                //   let className = (mediaNode.index === mediaIndex) ? 'selected-line' : '';
-                //   return (
-                //     <Thumbnail 
-                //     mediaNode={mediaNode}
-                //     displayImageInModal={displayImageInModal}
-                //     className={className}
-                //     />
-                //   );
-                // })
+              <div>Images in this review</div>
+              <div className={styles.reviewGallery}>
+                {
+                  productReview.media.map(mediaNode => {
+                    let className = (mediaNode.index === mediaIndex) ? 'selected-line' : '';
+                    return (
+                      <CustomerImage 
+                      mediaNode={mediaNode}
+                      displayImageInModal={displayImageInModal}
+                      className={className}
+                      />
+                    );
+                  })
                 }
+              </div>
             </div>
           </div>
         </div>
