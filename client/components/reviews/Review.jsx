@@ -1,36 +1,37 @@
 import React from 'react';
 import {formatDate} from '../../helpers';
 import {CustomerImage} from '../customer_images/CustomerImage.jsx';
-import styles from './stylesReviews.css';
+import reviewStyles from './stylesReviews.css';
+import styles from '../styled_components/stylesComponents.css';
 import {FiveStarsSmall} from '../styled_components/StyledComponents.jsx';
 
 const Review = ({productReview, displayImageInModal}) => {
   return (
-    <div className={styles.review}>
+    <div className={reviewStyles.review}>
       {/* HEADER: AUTHOR INFO */}
-      <div className={styles.author}>
-        <img className={styles.avatar}
+      <div className={reviewStyles.author}>
+        <img className={reviewStyles.avatar}
           src={productReview.avatar}
         />
         {productReview.username}
       </div>
 
       {/* HEADER: REVIEW INFO */}
-      <div className={styles.reviewInfo}>
-        <div className={styles.headline}>
+      <div className={reviewStyles.reviewInfo}>
+        <div className={reviewStyles.headline}>
           <FiveStarsSmall rating={productReview.stars}/> 
           <span>{productReview.headline}</span>
         </div>  
-        <div className={styles.date}>{formatDate(productReview.posted)}</div>
-        <div className={styles.verified}>{(productReview.verified) ? 'Verified Purchase' : ''}</div>
+        <div className={reviewStyles.date}>{formatDate(productReview.posted)}</div>
+        <div className={reviewStyles.verified}>{(productReview.verified) ? 'Verified Purchase' : ''}</div>
       </div>
 
       {/* REVIEW BODY -- add read more tag */}
-      <div className={styles.body} dangerouslySetInnerHTML={{__html: productReview.body}}>
+      <div className={reviewStyles.body} dangerouslySetInnerHTML={{__html: productReview.body}}>
       </div>
 
       {/* IMAGE THUMBNAILS */}
-      <div className={styles.images}>
+      <div className={reviewStyles.images}>
         {productReview.media.map((mediaNode) => 
           <CustomerImage 
             mediaNode={mediaNode}
@@ -39,11 +40,14 @@ const Review = ({productReview, displayImageInModal}) => {
       </div>
       
       {/* FOOTER: HELPFUL, CONTACT, REPORT */}
-      <div className={styles.footer}>
-        <div className={styles.helped}>{productReview.helpful} people found this helpful</div>
-        <div>
-          <button className={styles.helpful}>Helpful</button> 
-          <span className="gray">| <a className={styles.styledLink} href="#">Comment</a> | <a className={styles.styledLink} href="#">Report abuse</a></span>
+      <div className={reviewStyles.footer}>
+        <div className={reviewStyles.helped}>{productReview.helpful} people found this helpful</div>
+        <div className={reviewStyles.actions}>
+          <button className={reviewStyles.helpful}>Helpful</button> 
+          <div className={styles.separator}></div>
+          <a className={reviewStyles.styledLink} href="#">Comment</a>
+          <div className={styles.separator}></div>
+          <a className={reviewStyles.styledLink} href="#">Report abuse</a>
         </div>
       </div>
     </div>

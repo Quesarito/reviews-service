@@ -106,12 +106,10 @@ class App extends React.Component {
 
     if (reorderType === 'reset') {
       filter = '';
-      console.log('SORT BY FOR RESET', sortBy);
       newDisplay = reorderReviews(this.state.reviewData, sortBy);
     } else if (reorderType === 'keyword') {
-      console.log('TARGET DATAFILTER:', params);
       filter = params.filter;
-      newDisplay = reorderReviews(this.state.displayedReviews, reorderType, params.filter);
+      newDisplay = reorderReviews(this.state.reviewData, reorderType, params.filter);
     } else {
       sortBy = reorderType;
       newDisplay = reorderReviews(this.state.displayedReviews, reorderType);

@@ -38,6 +38,7 @@
   font-weight: 700;
   line-height: 19px;
   display: flex;
+  align-items: center;
 }
 .headline span {
   display: inline-block;
@@ -73,7 +74,7 @@
 .footer {
   margin-top: 5px;
 }
-.footer div {
+.footer > div {
   margin: 10px 0;
 }
 
@@ -86,7 +87,6 @@
   width: auto;
   padding-left: 20px;
   padding-right: 20px;
-  margin-right: 10px;
 }
 
 .styledLink {
@@ -96,5 +96,14 @@
 
 .clearFilter {
   composes: styledLink from '../styled_components/stylesComponents.css';
-  font-weight: regular;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.actions a:hover {
+  text-decoration: none;
 }

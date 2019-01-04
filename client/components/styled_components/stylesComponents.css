@@ -77,3 +77,11 @@
   height: 19px;
   width: 19px;
 }
+
+.separator {
+  background-color: #ddd;
+  width: 1px;
+  height: 14px;
+  margin: 0 10px;
+  display: inline-block;
+}

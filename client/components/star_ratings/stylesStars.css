@@ -41,6 +41,10 @@
     display: flex;
     margin: 0 0 5px 0;
 } 
+.starBarWrapper:hover  div {
+  color: #c44500 !important;
+  text-decoration: underline;
+}
 
 .starBarOuter {
   background: linear-gradient(to bottom,#eee,#f6f6f6);

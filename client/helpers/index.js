@@ -83,23 +83,20 @@ const buildMediaList = reviewData => {
 const reorderReviews = (reviewData, sortBy, keyword) => {
   let byTop = (a, b) => {
     return b.helpful - a.helpful;
-  }
+  };
 
   let byRecent = (a, b) => {
     return new Date(b.posted) - new Date(a.posted);
   };
 
-  switch (sortBy) {
-    case 'top':
-      return reviewData.sort(byTop)
-    case 'recent':
-      console.log('RECENT REVIEW DATA', reviewData);
-      return reviewData.sort(byRecent);
-    default:
-      return reviewData.filter(review => {
-        return review.body.toLowerCase().indexOf(keyword) > -1;
-      });
-  }
+  let filter = (reviewData) => {
+    return reviewData.filter(review => {
+      return review.body.toLowerCase().indexOf(keyword) > -1;
+    });
+  };
+
+  reviewData = (keyword === undefined) ? reviewData : filter(reviewData);
+  return (sortBy === 'top') ? reviewData.sort(byTop) : reviewData.sort(byRecent);
 };
 
 export {prefaceURL, formatDate, setStars, buildMediaList, reorderReviews};
