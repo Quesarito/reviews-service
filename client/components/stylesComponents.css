@@ -1,0 +1,29 @@
+.iconWrapper {
+    display: flex;
+    align-items: center;
+}
+.icon {
+  background-image: url('https://s3-us-west-1.amazonaws.com/crackling-iceberg-lettuce-120/assets/sprites.png');
+  background-size: 400px;
+  background-repeat: no-repeat;
+}
+
+.fiveStarWrapper {
+  composes: iconWrapper;
+  display: inline-block;
+}
+
+.fiveStar {
+  composes: icon;
+  background-position-y: -398px;
+  width: 95px;
+  height:20px;
+  display: inline-block;
+}
+.fiveStarSmall {
+  composes: icon;
+  background-position-y: -369px;
+  width: 80px;
+  height: 15px;
+  display: inline-block;
+}

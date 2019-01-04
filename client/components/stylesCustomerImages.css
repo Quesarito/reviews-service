@@ -1,0 +1,16 @@
+.gallery {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.customerImage {
+  composes: icon from './stylesComponents.css';
+  background-position: center;
+  background-size: cover;
+}
+
+.gallery .customerImage {
+  height: 140px;
+  width: 140px;
+  margin-right: 5px;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {prefaceURL} from '../helpers';
+import styles from './stylesCustomerImages.css';
 
 const StyledImage = styled.img`
   content: url('${props => props.src}');
@@ -12,14 +13,17 @@ const StyledThumbnail = styled.div`
   display: inline-block;
 `;
 
-const CustomerImage = ({className, mediaNode, displayImageInModal}) => {
+const CustomerImage = ({mediaNode, displayImageInModal}) => {
+  let image = {
+    backgroundImage: `url('${prefaceURL(mediaNode.url)}')`
+  };
   return (
-    <StyledImage as="a" href="#" 
-      className={className}
-      src={prefaceURL(mediaNode.url)} 
+    <div className={styles.customerImage}
       data-review-index={mediaNode.reviewIndex}
       data-media-index={mediaNode.index}
-      onClick={displayImageInModal}/>
+      onClick={displayImageInModal}
+      style={image}>
+    </div>
   );
 };
 

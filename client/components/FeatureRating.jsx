@@ -1,31 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
-import {FiveStarSmall} from './FiveStar.jsx';
-
-const StyledFeatureRating = styled.div`
-  margin: 20px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  div {
-    display: flex;
-
-    span {
-      margin-left: 5px;
-    }
-  }
-`;
+import {FiveStarsSmall} from './StyledComponents.jsx';
+import styles from './stylesStars.css';
 
 const FeatureRating = ({feature, rating}) => {
   return (
-    <StyledFeatureRating>
-      <div>{feature}</div> 
-      <div>
-        <FiveStarSmall rating={rating}/> 
-        <span className="lightgray">{rating}</span>
+    <div className={styles.featureWrapper}>
+      <div>{feature}</div>
+      <div className={styles.featureRating}>
+        <FiveStarsSmall rating={rating}/>
+        <span>{rating.toFixed(1)}</span>
       </div>
-    </StyledFeatureRating>
+    </div>
   );
 };
 

@@ -1,8 +1,11 @@
+import React from 'react';
 import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
 import AmazonEmber from '../styles/fonts/AmazonEmber_Rg.ttf';
 import AmazonEmberBold from '../styles/fonts/AmazonEmber_Bd.ttf';
 import sprites from '../styles/sprites.png';
+import styles from './stylesComponents.css';
+import {setStars} from '../helpers';
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -91,4 +94,34 @@ const StyledLink = styled.a`
   }
 `;
 
-export {GlobalStyles, StyledButton, Sprite, StyledLink};
+const Icon = () => {
+  return (
+    <div className={styles.iconWrapper}>
+      <div className={styles.icon}></div>
+    </div>
+  );
+};
+
+const FiveStars = ({rating}) => {
+  let backgroundX = {
+    'backgroundPositionX': -setStars(rating, 'large')
+  };
+  return (
+    <div className={styles.fiveStarWrapper}>
+      <div className={styles.fiveStar} style={backgroundX}></div>
+    </div>
+  );
+};
+
+const FiveStarsSmall = ({rating}) => {
+  let backgroundX = {
+    'backgroundPositionX': -setStars(rating)
+  };
+  return (
+    <div className={styles.fiveStarWrapper}>
+      <div className={styles.fiveStarSmall} style={backgroundX}></div>
+    </div>
+  );
+};
+
+export {GlobalStyles, StyledButton, Sprite, StyledLink, FiveStars, FiveStarsSmall};

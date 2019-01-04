@@ -24,7 +24,7 @@ class App extends React.Component {
       featureData: {},
       mediaList: null,
       keywords: [],
-      productId: 8,
+      productId: 57,
       filter: '',
       sortBy: 'top',
       modal: {
@@ -134,13 +134,31 @@ class App extends React.Component {
     let scrollable = (!this.state.modal.display) ? '' : styles.noScroll;
     return (
       <div className={`${styles.styledApp} ${scrollable}`}>
-        <b>HELLO </b>Hello I am css moduled
         {
         (!this.state.starData.hasOwnProperty('total')) ? '' : 
           <StarRatings 
             starData={this.state.starData} 
             featureData={this.state.featureData}/>
         }
+        
+        <div className={styles.reviewWrapper}>
+          {
+            (!this.state.reviewData.length > 0) ? '' : 
+            <>
+              <CustomerImageList 
+                mediaList={this.state.mediaList}
+                toggleModal={this.toggleModal()}
+                displayImageInModal={this.displayImageInModal.bind(this)}/>
+              {/* <Keywords keywords={this.state.keywords}
+                filter={this.state.filter}
+                changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
+              <ReviewList reviews={this.state.displayedReviews} 
+                filter={this.state.filter}
+                displayImageInModal={this.displayImageInModal.bind(this)}
+                changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/> */}
+            </>
+          }
+        </div>
       </div>
     )
     // return (
