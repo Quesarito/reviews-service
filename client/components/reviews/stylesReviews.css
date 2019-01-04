@@ -77,7 +77,7 @@
 } 
 
 .helpful {
-  composes: styledButton from './stylesComponents.css';
+  composes: styledButton from '../styled_components/stylesComponents.css';
   width: auto;
   padding-left: 20px;
   padding-right: 20px;
@@ -85,11 +85,11 @@
 }
 
 .styledLink {
-  composes: styledLink from './stylesComponents.css';
+  composes: styledLink from '../styled_components/stylesComponents.css';
   color: black;
 }
 
 .clearFilter {
-  composes: styledLink from './stylesComponents.css';
+  composes: styledLink from '../styled_components/stylesComponents.css';
   font-weight: regular;
 }

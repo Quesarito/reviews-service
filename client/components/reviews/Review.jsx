@@ -1,8 +1,8 @@
 import React from 'react';
-import {formatDate} from '../helpers';
-import {CustomerImage} from './CustomerImage.jsx';
+import {formatDate} from '../../helpers';
+import {CustomerImage} from '../customer_images/CustomerImage.jsx';
 import styles from './stylesReviews.css';
-import {FiveStarsSmall} from './StyledComponents.jsx';
+import {FiveStarsSmall} from '../styled_components/StyledComponents.jsx';
 
 const Review = ({productReview, displayImageInModal}) => {
   return (

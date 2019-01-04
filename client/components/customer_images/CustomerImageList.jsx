@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyledLink} from './StyledComponents.jsx';
 import styles from './stylesCustomerImages.css';
+import stylesComponents from '../styled_components/stylesComponents.css';
 import {CustomerImage} from './CustomerImage.jsx';
 
 const CustomerImageList = ({mediaList, toggleModal, displayImageInModal}) => {
@@ -21,7 +21,7 @@ const CustomerImageList = ({mediaList, toggleModal, displayImageInModal}) => {
       <div className={styles.gallery}>
         {customerImages}
       </div>
-      <StyledLink href="#" onClick={toggleModal}>See all customer images</StyledLink>
+      <a className={stylesComponents.styledLink} href="#" onClick={toggleModal}>See all customer images</a>
     </div>
   );
 };

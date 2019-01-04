@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {prefaceURL} from '../helpers';
+import {prefaceURL} from '../../helpers';
 import styles from './stylesCustomerImages.css';
 
 const StyledThumbnail = styled.div`

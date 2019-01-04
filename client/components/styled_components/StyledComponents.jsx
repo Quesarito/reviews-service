@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
-import AmazonEmber from '../styles/fonts/AmazonEmber_Rg.ttf';
-import AmazonEmberBold from '../styles/fonts/AmazonEmber_Bd.ttf';
-import sprites from '../styles/sprites.png';
+// import AmazonEmber from '../styles/fonts/AmazonEmber_Rg.ttf';
+import AmazonEmberBold from '../../styles/fonts/AmazonEmber_Bd.ttf';
 import styles from './stylesComponents.css';
-import {setStars} from '../helpers';
+import {setStars} from '../../helpers';
 
 const GlobalStyles = createGlobalStyle`
   @font-face {

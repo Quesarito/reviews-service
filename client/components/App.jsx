@@ -1,18 +1,11 @@
 import React from 'react';
-// import styled from 'styled-components';
-import {GlobalStyles} from './StyledComponents.jsx';
-import StarRatings from './StarRatings.jsx';
-import CustomerImageList from './CustomerImageList.jsx';
-import ImageModal from './ImageModal.jsx';
-import Keywords from './Keywords.jsx';
-import ReviewList from './ReviewList.jsx';
+import StarRatings from './star_ratings/StarRatings.jsx';
+import CustomerImageList from './customer_images/CustomerImageList.jsx';
+import ImageModal from './modal/ImageModal.jsx';
+import Keywords from './keywords/Keywords.jsx';
+import ReviewList from './reviews/ReviewList.jsx';
 import {buildMediaList, reorderReviews} from '../helpers';
 import styles from './stylesApp.css';
-
-// const StyledApp = styled.div`
-//   display: flex;
-//   overflow: ${props => (props.scrollable) ? 'scroll' : 'hidden'};
-// `;
 
 class App extends React.Component {
   constructor() {
@@ -134,6 +127,15 @@ class App extends React.Component {
     let scrollable = (!this.state.modal.display) ? '' : styles.noScroll;
     return (
       <div className={`${styles.styledApp} ${scrollable}`}>
+        {
+          (!this.state.modal.display) ? '' :
+            <ImageModal 
+              mediaIndex={this.state.modal.mediaIndex}
+              productReview={this.state.reviewData[this.state.modal.reviewIndex]}
+              mediaList={this.state.mediaList}
+              toggleModal={this.toggleModal()}
+              displayImageInModal={this.displayImageInModal.bind(this)}/>
+        }
         {
         (!this.state.starData.hasOwnProperty('total')) ? '' : 
           <StarRatings 

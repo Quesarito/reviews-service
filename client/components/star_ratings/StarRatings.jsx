@@ -1,7 +1,7 @@
 import React from 'react';
 import FeatureRating from './FeatureRating.jsx';
 import styles from './stylesStars.css';
-import {FiveStars} from './StyledComponents.jsx';
+import {FiveStars} from '../styled_components/StyledComponents.jsx';
 
 const StarBar = ({stars, percent}) => {
   let innerBarWidth = {width: `${percent}%`};

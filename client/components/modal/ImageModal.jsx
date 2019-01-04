@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import {CustomerThumbnail} from './CustomerImage.jsx';
-import {FiveStarSmall} from './FiveStar.jsx';
-import {formatDate, prefaceURL} from '../helpers';
-import {Sprite} from './StyledComponents.jsx';
+import {CustomerThumbnail} from '../customer_images/CustomerImage.jsx';
+import {Sprite} from '../styled_components/StyledComponents.jsx';
+import styles from './stylesModal.css';
+import ModalReview from './ModalReview.jsx';
 
 const ModalWrapper = styled.div`
   display: flex;
@@ -69,24 +69,6 @@ const ModalReviewWrapper = styled.div`
   flex-grow: 1;
   display: flex;
   align-items: stretch;
-`;
-
-const LinkToImageGallery = styled(Sprite)`
-  color: black;
-  font-size: 13px;
-  font-weight: bold;
-  text-decoration: none;
-  justify-content: flex-start;
-  margin: 15px 0 0 15px;
-
-  div {
-    background-size: 500px;
-    background-position: -200px -4px;
-    width: 19px;
-    height: 19px;
-    display: inline-block;
-    margin-right: 5px;
-  }
 `;
 
 const LargeImage = styled.div`
@@ -212,72 +194,7 @@ const ModalGallery = ({mediaList, displayImageInModal}) => {
   );
 };
 
-const ModalReviews = ({productReview, mediaIndex, displayImageInModal}) => {
-  let currentNode = productReview.media[mediaIndex];
-  return (
-    <>
-      <LinkToImageGallery
-        as="a" href="#"
-        data-review-index={-1}
-        data-media-index={-1}
-        onClick={displayImageInModal}>
-        <div></div>
-        View Image Gallery
-      </LinkToImageGallery>
 
-      <ModalReviewWrapper>
-        <LargeImage src={prefaceURL(currentNode.url)}>
-          {
-            (currentNode.prev === null) ? <ToPrevImage/>
-            : <ToPrevImage
-              as="a" href="#"
-              data-review-index={currentNode.prev.reviewIndex}
-              data-media-index={currentNode.prev.index}
-              onClick={displayImageInModal}>
-              <div></div>
-            </ToPrevImage>
-          }
-          {
-            (currentNode.next === null) ? <ToNextImage/>
-            : <ToNextImage
-              as="a" href="#"
-              data-review-index={currentNode.next.reviewIndex}
-              data-media-index={currentNode.next.index}
-              onClick={displayImageInModal}>
-              <div></div>
-            </ToNextImage>
-          }
-        </LargeImage>
-
-        <StyledReview>
-          <div className="product-name">{productReview.productName}</div>
-          <div className='headline'>
-            <FiveStarSmall rating={productReview.stars}/>
-            <span>{productReview.headline}</span>
-          </div>
-          <div className="byline gray">By {productReview.username} on {formatDate(productReview.posted)}</div>
-          <div dangerouslySetInnerHTML={{__html: productReview.body}}></div>
-
-          <div>
-            <div className="review-images gray">Images in this review</div>
-            {
-              productReview.media.map(mediaNode => {
-                let className = (mediaNode.index === mediaIndex) ? 'selected-line' : '';
-                return (
-                  <Thumbnail 
-                  mediaNode={mediaNode}
-                  displayImageInModal={displayImageInModal}
-                  className={className}
-                  />
-                );
-              })
-              }
-          </div>
-        </StyledReview>
-      </ModalReviewWrapper>
-    </>
-  );
-};
 
 const ImageModal = ({
   toggleModal, displayImageInModal, 
@@ -298,7 +215,7 @@ const ImageModal = ({
           mediaList={mediaList} 
           displayImageInModal={displayImageInModal}
           />
-        : <ModalReviews 
+        : <ModalReview 
           mediaIndex={mediaIndex}
           productReview={productReview}
           toggleModal={toggleModal}

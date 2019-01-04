@@ -1,5 +1,5 @@
 import React from 'react';
-import {FiveStarsSmall} from './StyledComponents.jsx';
+import {FiveStarsSmall} from '../styled_components/StyledComponents.jsx';
 import styles from './stylesStars.css';
 
 const FeatureRating = ({feature, rating}) => {

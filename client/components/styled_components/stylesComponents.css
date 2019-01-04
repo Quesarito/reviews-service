@@ -1,6 +1,6 @@
 .iconWrapper {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .icon {
   background-image: url('https://s3-us-west-1.amazonaws.com/crackling-iceberg-lettuce-120/assets/sprites.png');
