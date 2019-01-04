@@ -1,35 +1,37 @@
 import React from 'react';
 import FeatureRating from './FeatureRating.jsx';
-import styles from './stylesStars.css';
+import starStyles from './stylesStars.css';
+import styles from '../styled_components/stylesComponents.css';
 import {FiveStars} from '../styled_components/StyledComponents.jsx';
 
 const StarBar = ({stars, percent}) => {
   let innerBarWidth = {width: `${percent}%`};
   return (
-    <div className={styles.starBarWrapper}>
-      <div className={styles.starNumber}>{stars} star</div>
-      <div className={styles.starBarOuter}>
-        <div className={styles.starBarInner} style={innerBarWidth}> </div>
+    <div className={starStyles.starBarWrapper}>
+      <div className={starStyles.starNumber}>{stars} star</div>
+      <div className={starStyles.starBarOuter}>
+        <div className={starStyles.starBarInner} style={innerBarWidth}> </div>
       </div>
-      <div className={styles.starPercent}>{percent.toFixed(0)}%</div>
+      <div className={starStyles.starPercent}>{percent.toFixed(0)}%</div>
     </div>
   );
 }
 
 const StarRatings = ({starData, featureData}) => {
   return (
-    <div className={`${styles.starRatings}`}>
-      <div className={styles.section}>
-        <h2>{starData.total} customer  
+    <div className={`${starStyles.starRatings}`}>
+      <div className={starStyles.section}>
+        <div className={starStyles.sectionHeader}>{starData.total} customer  
           {(starData.total !== 1) ? ' reviews' : ' review'}
-        </h2>
+        </div>
         
-        <div className={styles.overall}>
+        <div className={starStyles.overall}>
           <FiveStars rating={starData.average}/>
           <span>{starData.average} out of 5 stars</span>
+          <div className={starStyles.v}></div>
         </div>
 
-        <div className={styles.starBarTable}>
+        <div className={starStyles.starBarTable}>
           {
             starData.counts.map((count, stars) => {
               let percent = (count / starData.total) * 100;
@@ -45,23 +47,23 @@ const StarRatings = ({starData, featureData}) => {
         {
           (Object.keys(featureData).length < 1)
           ? ''
-          : <>
-            <h2>By feature</h2>
-            <div className={styles.features}>
-              {
-                Object.entries(featureData).map(pair => {
-                  return <FeatureRating feature={pair[0]} rating={pair[1]}/>
-                })
-              }
+          : <div className={starStyles.section}>
+              <div className={starStyles.sectionHeader}>By feature</div>
+              <div>
+                {
+                  Object.entries(featureData).map(pair => {
+                    return <FeatureRating feature={pair[0]} rating={pair[1]}/>
+                  })
+                }
+              </div>
             </div>
-          </>
         }
       </div>
 
-      <div className={styles.section}>
-        <h3>Review this product</h3>
+      <div className={starStyles.section}>
+        <div className={starStyles.sectionHeader}>Review this product</div>
         <p>Share your thoughts with other customers</p>
-        <button>Write a customer review</button>
+        <button className={styles.styledButton}>Write a customer review</button>
       </div>
     </div>
   );

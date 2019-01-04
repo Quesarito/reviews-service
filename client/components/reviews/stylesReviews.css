@@ -25,20 +25,23 @@
 }
 .avatar {
   border-radius: 50%;
-  height:40px;
-  width:40px;
+  height:30px;
+  width:30px;
   margin-right: 10px;
 }
 
 .reviewInfo {
   margin: 10px 0;
 }
-.reviewInfo div {
-  margin: 0 5px 0 0;
-}
 .headline {
+  font-size: 13px;
   font-weight: 700;
+  line-height: 19px;
   display: flex;
+}
+.headline span {
+  display: inline-block;
+  margin-left: 5px;
 }
 .date {
   color: #555;
@@ -50,6 +53,8 @@
 }
 
 .body {
+  font-size: 13px;
+  line-height: 19px;
   margin: 10px 0;
 }
 .body p {

@@ -40,7 +40,7 @@ const Review = ({productReview, displayImageInModal}) => {
       
       {/* FOOTER: HELPFUL, CONTACT, REPORT */}
       <div className={styles.footer}>
-        <div className="helpful">{productReview.helpful} people found this helpful</div>
+        <div className={styles.helped}>{productReview.helpful} people found this helpful</div>
         <div>
           <button className={styles.helpful}>Helpful</button> 
           <span className="gray">| <a className={styles.styledLink} href="#">Comment</a> | <a className={styles.styledLink} href="#">Report abuse</a></span>
