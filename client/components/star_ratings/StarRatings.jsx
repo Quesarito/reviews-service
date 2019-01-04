@@ -15,7 +15,15 @@ const StarBar = ({stars, percent}) => {
       <div className={starStyles.starPercent}>{percent.toFixed(0)}%</div>
     </div>
   );
-}
+};
+
+const Popup = () => {
+  return (
+    <div className={starStyles.popup}>
+      Amazon calculates a product’s star ratings based on a machine learned model instead of a raw data average. The model takes into account factors including the age of a rating, whether the ratings are from verified purchasers, and factors that establish reviewer trustworthiness.
+    </div>
+  );
+};
 
 const StarRatings = ({starData, featureData}) => {
   return (
@@ -46,8 +54,8 @@ const StarRatings = ({starData, featureData}) => {
       <div>
         {
           (Object.keys(featureData).length < 1)
-          ? ''
-          : <div className={starStyles.section}>
+            ? ''
+            : <div className={starStyles.section}>
               <div className={starStyles.sectionHeader}>By feature</div>
               <div>
                 {

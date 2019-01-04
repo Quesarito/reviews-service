@@ -68,9 +68,9 @@ const ModalReview = ({productReview, mediaIndex, displayImageInModal}) => {
                     let className = (mediaNode.index === mediaIndex) ? modalStyles.selected : '';
                     return (
                       <CustomerImage 
-                      mediaNode={mediaNode}
-                      displayImageInModal={displayImageInModal}
-                      className={className}
+                        mediaNode={mediaNode}
+                        displayImageInModal={displayImageInModal}
+                        className={className}
                       />
                     );
                   })

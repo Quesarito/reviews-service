@@ -10,6 +10,7 @@ font-weight: bold;
 }
 .styledApp {
 font-family: 'Amazon Ember', Arial, sans-serif;
+display: flex;
 }
 
 .noScroll {
@@ -34,19 +35,4 @@ color: #c45500;
 
 .blue {
 color: #0066c0;
-}
-
-.flex-left-center {
-display: flex;
-align-items: center;
-}
-
-.selected-glow {
-box-shadow: 0 0 10px 1px rgb(230, 115, 34, 0.7);
-border: solid 1px rgb(230, 115, 34);
-}
-
-.selected-line {
-border: solid 2px orange;
-border-radius: 3px;
 }

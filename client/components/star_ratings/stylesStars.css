@@ -1,6 +1,6 @@
 .starRatings {
   font-size:13px;
-  width: 300px;
+  min-width: 300px;
 }
 
 .section {

@@ -17,7 +17,7 @@ class App extends React.Component {
       featureData: {},
       mediaList: null,
       keywords: [],
-      productId: 27,
+      productId: 16,
       filter: '',
       sortBy: 'top',
       modal: {
@@ -137,10 +137,10 @@ class App extends React.Component {
               displayImageInModal={this.displayImageInModal.bind(this)}/>
         }
         {
-        (!this.state.starData.hasOwnProperty('total')) ? '' : 
-          <StarRatings 
-            starData={this.state.starData} 
-            featureData={this.state.featureData}/>
+          (!this.state.starData.hasOwnProperty('total')) ? '' : 
+            <StarRatings 
+              starData={this.state.starData} 
+              featureData={this.state.featureData}/>
         }
         
         <div className={styles.reviewWrapper}>
