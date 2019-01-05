@@ -160,47 +160,7 @@ class App extends React.Component {
           }
         </div>
       </div>
-    )
-    // return (
-    //   <StyledApp scrollable={!this.state.modal.display}>
-    //     <GlobalStyles />
-    //     {
-    //       (!this.state.modal.display) ? '' :
-    //         <ImageModal 
-    //           mediaIndex={this.state.modal.mediaIndex}
-    //           productReview={this.state.reviewData[this.state.modal.reviewIndex]}
-    //           mediaList={this.state.mediaList}
-    //           toggleModal={this.toggleModal()}
-    //           displayImageInModal={this.displayImageInModal.bind(this)}/>
-    //     }
-    //     {
-    //       (!this.state.starData.hasOwnProperty('total')) ? '' : 
-    //         <StarRatings 
-    //           starData={this.state.starData} 
-    //           featureData={this.state.featureData}/>
-    //     }
-    //     <div className="review-wrapper">
-    //       {
-    //         (!this.state.reviewData.length > 0) ? '' : 
-    //         <>
-    //           <CustomerImageList 
-    //             mediaList={this.state.mediaList}
-    //             toggleModal={this.toggleModal()}
-    //             displayImageInModal={this.displayImageInModal.bind(this)}/>
-    //           <Keywords keywords={this.state.keywords}
-    //             filter={this.state.filter}
-    //             changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
-    //           <ReviewList reviews={this.state.displayedReviews} 
-    //             filter={this.state.filter}
-    //             displayImageInModal={this.displayImageInModal.bind(this)}
-    //             changeDisplayedReviews={this.changeDisplayedReviews.bind(this)}/>
-    //         </>
-    //       }
-    //     </div>
-    //   </StyledApp>
-    // );
-  }  
+    );
+  }
 }
-
-// StyledApp.displayName = 'StyledApp';
 export default App;
