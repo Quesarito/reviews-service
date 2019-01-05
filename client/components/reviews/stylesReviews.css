@@ -103,7 +103,9 @@
   display: flex;
   align-items: center;
 }
-
+.actions a {
+  color: #555;
+}
 .actions a:hover {
   text-decoration: none;
 }

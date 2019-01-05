@@ -29,6 +29,7 @@ const ReviewList = ({reviews, filter, displayImageInModal, changeDisplayedReview
       {
         reviews.map(review => 
           <Review 
+            key={review.id}
             productReview={review}
             displayImageInModal={displayImageInModal}/>
         )

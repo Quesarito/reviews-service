@@ -34,6 +34,7 @@ const Review = ({productReview, displayImageInModal}) => {
       <div className={reviewStyles.images}>
         {productReview.media.map((mediaNode) => 
           <CustomerImage 
+            key={mediaNode.index}
             mediaNode={mediaNode}
             displayImageInModal={displayImageInModal}
           />)}

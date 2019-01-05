@@ -7,7 +7,7 @@ import {FiveStars} from '../styled_components/StyledComponents.jsx';
 const StarBar = ({stars, percent}) => {
   let innerBarWidth = {width: `${percent}%`};
   return (
-    <div className={starStyles.starBarWrapper}>
+    <div key={stars} className={starStyles.starBarWrapper}>
       <div className={starStyles.starNumber}>{stars} star</div>
       <div className={starStyles.starBarOuter}>
         <div className={starStyles.starBarInner} style={innerBarWidth}> </div>
@@ -20,7 +20,15 @@ const StarBar = ({stars, percent}) => {
 const Popup = () => {
   return (
     <div className={starStyles.popup}>
-      Amazon calculates a product’s star ratings based on a machine learned model instead of a raw data average. The model takes into account factors including the age of a rating, whether the ratings are from verified purchasers, and factors that establish reviewer trustworthiness.
+      <div className={starStyles.tail}></div>
+      <div className={starStyles.bubble}>
+        <a className={starStyles.popupX}>
+          <div className={styles.x}></div>
+        </a>
+        <div>
+          Amazon calculates a product’s star ratings based on a <br/>machine learned model instead of a raw data average. The model takes into account factors including the age of a rating, whether the ratings are from verified purchasers, and factors that establish reviewer trustworthiness.
+        </div>
+      </div>
     </div>
   );
 };
@@ -37,6 +45,7 @@ const StarRatings = ({starData, featureData}) => {
           <FiveStars rating={starData.average}/>
           <span>{starData.average} out of 5 stars</span>
           <div className={starStyles.v}></div>
+          <Popup />
         </div>
 
         <div className={starStyles.starBarTable}>
@@ -45,7 +54,7 @@ const StarRatings = ({starData, featureData}) => {
               let percent = (count / starData.total) * 100;
               return (stars === 0) 
                 ? ''
-                : <StarBar stars={stars} percent={percent} />
+                : <StarBar key={stars} stars={stars} percent={percent} />;
             })
           }
         </div>

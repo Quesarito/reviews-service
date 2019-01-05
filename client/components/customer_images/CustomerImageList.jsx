@@ -9,6 +9,7 @@ const CustomerImageList = ({mediaList, toggleModal, displayImageInModal}) => {
   while (customerImages.length < 4 && currentNode !== null) {
     customerImages.push(
       <CustomerImage
+        key={`${currentNode.reviewIndex}-${currentNode.index}`}
         mediaNode={currentNode}
         displayImageInModal={displayImageInModal}
       />

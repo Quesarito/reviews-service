@@ -21,10 +21,11 @@ const Keywords = ({keywords, filter, changeDisplayedReviews}) => {
           keywords.map(kw => {
             let className = (kw === filter) ? styles.selected : '';
             return <Keyword
+              key={kw}
               word={kw}
               className={className}
               changeDisplayedReviews={changeDisplayedReviews}
-            />
+            />;
           })
         }
       </div>
