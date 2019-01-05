@@ -1,17 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
-import {GlobalStyles} from './StyledComponents.jsx';
-import StarRatings from './StarRatings.jsx';
-import CustomerImageList from './CustomerImageList.jsx';
-import ImageModal from './ImageModal.jsx';
-import Keywords from './Keywords.jsx';
-import ReviewList from './ReviewList.jsx';
+import StarRatings from './star_ratings/StarRatings.jsx';
+import CustomerImageList from './customer_images/CustomerImageList.jsx';
+import ImageModal from './modal/ImageModal.jsx';
+import Keywords from './keywords/Keywords.jsx';
+import ReviewList from './reviews/ReviewList.jsx';
 import {buildMediaList, reorderReviews} from '../helpers';
-
-const StyledApp = styled.div`
-  display: flex;
-  overflow: ${props => (props.scrollable) ? 'scroll' : 'hidden'};
-`;
+import styles from './stylesApp.css';
 
 class App extends React.Component {
   constructor() {
@@ -23,7 +17,7 @@ class App extends React.Component {
       featureData: {},
       mediaList: null,
       keywords: [],
-      productId: 8,
+      productId: 16,
       filter: '',
       sortBy: 'top',
       modal: {
@@ -112,12 +106,10 @@ class App extends React.Component {
 
     if (reorderType === 'reset') {
       filter = '';
-      console.log('SORT BY FOR RESET', sortBy);
       newDisplay = reorderReviews(this.state.reviewData, sortBy);
     } else if (reorderType === 'keyword') {
-      console.log('TARGET DATAFILTER:', params);
       filter = params.filter;
-      newDisplay = reorderReviews(this.state.displayedReviews, reorderType, params.filter);
+      newDisplay = reorderReviews(this.state.reviewData, reorderType, params.filter);
     } else {
       sortBy = reorderType;
       newDisplay = reorderReviews(this.state.displayedReviews, reorderType);
@@ -130,9 +122,9 @@ class App extends React.Component {
   }
 
   render() {
+    let scrollable = (!this.state.modal.display) ? '' : styles.noScroll;
     return (
-      <StyledApp scrollable={!this.state.modal.display}>
-        <GlobalStyles />
+      <div className={`${styles.styledApp} ${scrollable}`}>
         {
           (!this.state.modal.display) ? '' :
             <ImageModal 
@@ -148,7 +140,8 @@ class App extends React.Component {
               starData={this.state.starData} 
               featureData={this.state.featureData}/>
         }
-        <div className="review-wrapper">
+        
+        <div className={styles.reviewWrapper}>
           {
             (!this.state.reviewData.length > 0) ? '' : 
             <>
@@ -166,10 +159,8 @@ class App extends React.Component {
             </>
           }
         </div>
-      </StyledApp>
+      </div>
     );
-  }  
+  }
 }
-
-StyledApp.displayName = 'StyledApp';
 export default App;

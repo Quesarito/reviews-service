@@ -1,0 +1,129 @@
+.starRatings {
+  font-size:13px;
+  min-width: 300px;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 10px 0 20px 0;
+  border-bottom: solid 1px #d3d3d3;
+}
+
+.sectionHeader {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.overall {
+  display: inline-flex;
+  position: relative;
+}
+.overall span {
+  margin-left: 10px;
+}
+.overall:hover {
+  opacity: 1;
+}
+.overall:hover .v {
+  opacity: 0.8;
+}
+.overall:hover .popup {
+  opacity: 1;
+}
+.v {
+  composes: icon from '../styled_components/stylesComponents.css';
+  height: 19px;
+  width: 9px;
+  background-position: -89px 0;
+  margin-left: 5px;
+  opacity: 0.4;
+}
+.popup {
+  line-height: 19px;
+  width: 400px;
+  position: absolute;
+  padding-top: 20px;
+  top: 10px;
+  left: 10px;
+  opacity: 0;
+  transition: opacity 1s;
+}
+.bubble{
+  background-color: #fff;
+  border: solid 1px #cdcdcd;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 2px 5px 0px #cdcdcd;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.popupX {
+  composes: xWrapper from '../styled_components/stylesComponents.css';
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  align-self: flex-end;
+}
+.tail {
+  /* height: 0px;
+  width: 0px;
+  border: solid 8px red;
+  border-bottom: solid 8px blue;
+  border-top: none; */
+}
+
+.starBarTable {
+  display: flex;
+  flex-direction: column-reverse;
+  margin-top: 20px;
+}
+.starBarWrapper {
+    display: flex;
+    margin: 0 0 5px 0;
+} 
+.starBarWrapper:hover  div {
+  color: #c44500 !important;
+  text-decoration: underline;
+}
+
+.starBarOuter {
+  background: linear-gradient(to bottom,#eee,#f6f6f6);
+  flex: 0 0 70%;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 1px 1px rgb(0, 0, 0, 0.3);
+}
+.starBarInner {
+  background: linear-gradient(to bottom,#ffce00,#ffa700);
+  box-shadow: inset 0 0px 0px 1px rgb(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  border-radius: inherit;
+  height: 17px;
+}
+
+.starNumber {
+  color: #0066c0;
+  flex: 0 0 15%;
+}
+.starPercent {
+  color: #767676;
+  flex: 0 0 15%;
+  text-align: right;
+}
+
+.featureWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.featureRating {
+  color: #767676;
+  display: flex;
+}
+.featureRating span {
+  margin-left: 5px;
+}
+
+
+

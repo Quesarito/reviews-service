@@ -2,7 +2,6 @@ const db = require('../database');
 
 const retrieveData = (req, res, next) => {
   db.retrieve(req.params.productId, req.query.reviewType, (err, results) => {
-    console.log('PATHHHHHHHHHHHHHH', req.baseUrl);
     if (err) {
       res.status(500).send(err);
     }
@@ -30,29 +29,6 @@ const getReviewData = (req, res, next) => {
   res.reviewData = filtered;
   res.keywords = getKeywords(res.reviewData);
   next();
-
-  // db.retrieve(req.params.productId, req.query.reviewType, (err, results) => {
-  //   if (err) {
-  //     res.status(500).send(err);
-  //   }
-  //   let mediaURLs = {};
-  //   let filtered = results.filter(row => {
-  //     if (!mediaURLs.hasOwnProperty(row.id)) {
-  //       //Put URL into property array 
-  //       //So any future URLs for the same review can be stored there too
-  //       row.media = (row.media !== null) ? [row.media] : [];
-  //       mediaURLs[row.id] = row.media; //Set reference to the first's media property array
-  //       return true; //Keep the current review row
-  //     }
-  //     if (row.media !== null) {
-  //       mediaURLs[row.id].push(row.media); //Add duplicate's media URL to array
-  //     }
-  //     return false; //Discard review duplicate
-  //   });
-  //   console.log('RRRRREVIW DATA', filtered);
-  //   res.reviewData = filtered;
-  //   next();
-  // });
 };
 
 const getStarData = (req, res, next) => {

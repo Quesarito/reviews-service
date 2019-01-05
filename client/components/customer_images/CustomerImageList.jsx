@@ -1,27 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
-import {CustomerThumbnail} from './CustomerImage.jsx';
-import {StyledLink} from './StyledComponents.jsx';
-
-const Thumbnail = styled(CustomerThumbnail)`
-  height: 140px;
-  width: 140px;
-  margin-right: 5px;
-`;
-
-const StyledGallery = styled.div`
-  display: flex;
-  margin-bottom: 15px;
-`;
-
-StyledGallery.displayName = 'StyledGallery';
+import styles from './stylesCustomerImages.css';
+import stylesComponents from '../styled_components/stylesComponents.css';
+import {CustomerImage} from './CustomerImage.jsx';
 
 const CustomerImageList = ({mediaList, toggleModal, displayImageInModal}) => {
   let customerImages = [];
   let currentNode = mediaList.head;
   while (customerImages.length < 4 && currentNode !== null) {
     customerImages.push(
-      <Thumbnail 
+      <CustomerImage
+        key={`${currentNode.reviewIndex}-${currentNode.index}`}
         mediaNode={currentNode}
         displayImageInModal={displayImageInModal}
       />
@@ -31,10 +19,10 @@ const CustomerImageList = ({mediaList, toggleModal, displayImageInModal}) => {
   return (
     <div>
       <h3>Customer images</h3>
-      <StyledGallery>
+      <div className={styles.gallery}>
         {customerImages}
-      </StyledGallery>
-      <StyledLink href="#" onClick={toggleModal}>See all customer images</StyledLink>
+      </div>
+      <a className={stylesComponents.styledLink} href="#" onClick={toggleModal}>See all customer images</a>
     </div>
   );
 };
