@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const db = mysql.createConnection({
-  host: '172.17.0.2',
+  host: 'localhost',
   user: 'root',
   database: 'amazon_reviews'
 });

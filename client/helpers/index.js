@@ -78,7 +78,7 @@ const buildMediaList = reviewData => {
     });
   });
   return list;
-}
+};
 
 const reorderReviews = (reviewData, sortBy, keyword) => {
   let byTop = (a, b) => {

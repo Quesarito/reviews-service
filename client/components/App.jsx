@@ -109,7 +109,7 @@ class App extends React.Component {
       newDisplay = reorderReviews(this.state.reviewData, sortBy);
     } else if (reorderType === 'keyword') {
       filter = params.filter;
-      newDisplay = reorderReviews(this.state.reviewData, reorderType, params.filter);
+      newDisplay = reorderReviews(this.state.reviewData, sortBy, params.filter);
     } else {
       sortBy = reorderType;
       newDisplay = reorderReviews(this.state.displayedReviews, reorderType);
@@ -125,15 +125,6 @@ class App extends React.Component {
     let scrollable = (!this.state.modal.display) ? '' : styles.noScroll;
     return (
       <div className={`${styles.styledApp} ${scrollable}`}>
-        {
-          (!this.state.modal.display) ? '' :
-            <ImageModal 
-              mediaIndex={this.state.modal.mediaIndex}
-              productReview={this.state.reviewData[this.state.modal.reviewIndex]}
-              mediaList={this.state.mediaList}
-              toggleModal={this.toggleModal()}
-              displayImageInModal={this.displayImageInModal.bind(this)}/>
-        }
         {
           (!this.state.starData.hasOwnProperty('total')) ? '' : 
             <StarRatings 
@@ -159,6 +150,15 @@ class App extends React.Component {
             </>
           }
         </div>
+        {
+          (!this.state.modal.display) ? '' :
+            <ImageModal 
+              mediaIndex={this.state.modal.mediaIndex}
+              productReview={this.state.reviewData[this.state.modal.reviewIndex]}
+              mediaList={this.state.mediaList}
+              toggleModal={this.toggleModal()}
+              displayImageInModal={this.displayImageInModal.bind(this)}/>
+        }
       </div>
     );
   }
