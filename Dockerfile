@@ -19,4 +19,4 @@ RUN npm install
 EXPOSE 3003
 
 # How do you start your app?
-CMD [ "npm", "run", "docker" ]
+CMD [ "npm", "run", "docker"]

@@ -8,3 +8,4 @@ ENV MYSQL_ALLOW_EMPTY_PASSWORD=yes
 # executed during container startup
 COPY . /docker-entrypoint-initdb.d/
 
+
