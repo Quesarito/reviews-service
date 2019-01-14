@@ -14,7 +14,7 @@ let getRandomInt = function(start, stop) {
 let getRandomDouble = function(start = 0, stop = 5) {
   return ((Math.random() * (stop - start)) + start).toFixed(1);
 };
-
+ 
 const dest1 = fs.createWriteStream('tab1-products.tsv', {flags: 'a'});
 const dest2 = fs.createWriteStream('tab2-authors.tsv', {flags: 'a'});
 const dest3 = fs.createWriteStream('tab3-reviews.tsv', {flags: 'a'});

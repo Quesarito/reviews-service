@@ -19,7 +19,7 @@ CREATE TABLE reviews (
 	verified BOOLEAN DEFAULT false,
 	author_id INTEGER REFERENCES authors(id),
 	product_id INTEGER REFERENCES products(id)
-);
+); 
 
 CREATE TABLE features (
 	id SERIAL PRIMARY KEY,
