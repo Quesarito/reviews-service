@@ -1,41 +1,37 @@
 CREATE TABLE products (
-	id serial NOT NULL PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	name character(200)
 );
 
 CREATE TABLE authors (
-	id serial NOT NULL PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	username character(100),
 	avatar character(200)
 );
 
 CREATE TABLE reviews (
-	id serial NOT NULL PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	headline character(80),
 	body character(5000),
-	stars INTEGER,
+	stars INTEGER NOT NULL,
 	posted DATE NOT NULL,
-	helpful INTEGER,
+	helpful INTEGER NOT NULL,
 	verified BOOLEAN DEFAULT false,
-	author_id INTEGER,
-	product_id INTEGER,
-	FOREIGN KEY (author_id) REFERENCES authors(id),
-	FOREIGN KEY (product_id) REFERENCES products(id)
+	author_id INTEGER REFERENCES authors(id),
+	product_id INTEGER REFERENCES products(id)
 );
 
 CREATE TABLE features (
-	id serial NOT NULL PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	feature character(80),
-	rating double precision,
-	count INTEGER,
-	product_id INTEGER,
-	FOREIGN KEY (product_id) REFERENCES products(id)
+	rating NUMERIC(1, 0),
+	count INTEGER NOT NULL,
+	product_id INTEGER REFERENCES products(id)
 );
 
 CREATE TABLE media (
-	id serial NOT NULL PRIMARY KEY,
-	type character(5),
-	file character(200),
-	review_id integer,
-	FOREIGN KEY (review_id) REFERENCES reviews(id)
+	id SERIAL PRIMARY KEY,
+	type CHARACTER(5),
+	URL CHARACTER(200),
+	review_id INTEGER REFERENCES reviews(id)
 );
