@@ -1,14 +1,15 @@
-# Anazom E-Commerce Proxy Server
+# Anazom E-Commerce Reviews Microservice
 
-> The proxy server combines all four microservices.
+> The Reviews microservice is a React-based module that displays customer feedback for a given Anazom product listing.
+> 
+> The microservice offers individual ratings and reviews, as well as aggregated ratings for overall quality and specific product characteristics, and an image gallery for customer-uploaded images.
 
-## Microservices
+## Related Projects
 
   - [Product Details](https://github.com/Quesarito/product-service)
   - [Related Items](https://github.com/Quesarito/related-items-service)
   - [Navigation Bar](https://github.com/Accurate-e-Tail/vrtobar-service)
-  - [Reviews](https://github.com/Quesarito/reviews-service)
-  
+
 ## Table of Contents
 
 1. [Usage](#usage)
@@ -17,8 +18,10 @@
 
 ## Usage
 
+This is one of the four services listed above. They all need to be run together in a proxy server.
+
 `npm run seed` to seed the database.
-`npm start` to start the server on port 3003.
+`npm start` to start the microservice server on port 3003.
 
 ## Requirements
 
@@ -35,3 +38,4 @@ From within the root directory:
 ```sh
 npm install
 ```
+
