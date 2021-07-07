@@ -13,7 +13,7 @@ let NUM_MEDIA = 50;
 let getRandomInt = function(start, stop) {
   return Math.floor((Math.random() * (stop - start)) + start);
 };
-
+ 
 let getRandomDouble = function(start = 0, stop = 5) {
   return ((Math.random() * (stop - start)) + start).toFixed(1);
 };
